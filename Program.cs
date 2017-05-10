@@ -70,24 +70,24 @@ namespace GenerateCSharpErrors
             writer.WriteLine("*Parsed from the [Roslyn source code](https://github.com/dotnet/roslyn) using Roslyn.*");
             writer.WriteLine();
             
-            writer.WriteLine("|Code|Level|Message|");
-            writer.WriteLine("|----|-----|-------|");
+            writer.WriteLine("|Code|Severity|Message|");
+            writer.WriteLine("|----|--------|-------|");
             foreach (var e in errorCodes)
             {
-                if (e.Level== DiagnosticLevel.Unknown) continue;
-                writer.WriteLine($"|{e.Code}|{e.Level}|{e.Message}|");
+                if (e.Severity== Severity.Unknown) continue;
+                writer.WriteLine($"|{e.Code}|{e.Severity}|{e.Message}|");
             }
 
             writer.WriteLine();
             writer.WriteLine("## Statistics");
             writer.WriteLine();
 
-            var lookup = errorCodes.OrderByDescending(e => e.Level).ToLookup(e => e.Level);
-            writer.WriteLine("|Level|Count|");
-            writer.WriteLine("|-----|-----|");
+            var lookup = errorCodes.OrderByDescending(e => e.Severity).ToLookup(e => e.Severity);
+            writer.WriteLine("|Severity|Count|");
+            writer.WriteLine("|--------|-----|");
             foreach (var g in lookup)
             {
-                if (g.Key == DiagnosticLevel.Unknown) continue;
+                if (g.Key == Severity.Unknown) continue;
                 writer.WriteLine($"|{g.Key}|{g.Count()}|");
             }
             writer.WriteLine($"|**Total**|**{errorCodes.Count}**|");
@@ -100,53 +100,53 @@ namespace GenerateCSharpErrors
                 string name = member.Identifier.ValueText;
                 if (name == "Void" || name == "Unknown")
                 {
-                    return new ErrorCode(name, 0, DiagnosticLevel.Unknown, message);
+                    return new ErrorCode(name, 0, Severity.Unknown, message);
                 }
                 else
                 {
                     return new ErrorCode(
                         name.Substring(4),
                         int.Parse(member.EqualsValue?.Value?.GetText()?.ToString() ?? "0"),
-                        ParseLevel(name.Substring(0, 3)),
+                        ParseSeverity(name.Substring(0, 3)),
                         message);
                 }
             }
             
-            private ErrorCode(string name, int value, DiagnosticLevel level, string message)
+            private ErrorCode(string name, int value, Severity severity, string message)
             {
                 Name = name;
                 Value = value;
-                Level = level;
+                Severity = severity;
                 Message = message;
             }
             
             public string Name { get; }
             public int Value { get; }
             public string Code => $"CS{Value:D4}";
-            public DiagnosticLevel Level { get; }
+            public Severity Severity { get; }
             public string Message { get; }
             
-            private static DiagnosticLevel ParseLevel(string level)
+            private static Severity ParseSeverity(string severity)
             {
-                switch (level)
+                switch (severity)
                 {
                     case "HDN":
-                        return DiagnosticLevel.Hidden;
+                        return Severity.Hidden;
                     case "INF":
-                        return DiagnosticLevel.Info;
+                        return Severity.Info;
                     case "WRN":
-                        return DiagnosticLevel.Warning;
+                        return Severity.Warning;
                     case "ERR":
-                        return DiagnosticLevel.Error;
+                        return Severity.Error;
                     case "FTL":
-                        return DiagnosticLevel.Fatal;
+                        return Severity.Fatal;
                     default:
-                        return DiagnosticLevel.Unknown;
+                        return Severity.Unknown;
                 }
             }
         }
 
-        enum DiagnosticLevel
+        enum Severity
         {
             Unknown,
             Hidden,

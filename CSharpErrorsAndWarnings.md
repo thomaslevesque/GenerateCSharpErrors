@@ -2,8 +2,8 @@
 
 *Parsed from the [Roslyn source code](https://github.com/dotnet/roslyn) using Roslyn.*
 
-|Code|Level|Message|
-|----|-----|-------|
+|Code|Severity|Message|
+|----|--------|-------|
 |CS0006|Error|Metadata file '{0}' could not be found|
 |CS0009|Fatal|Metadata file '{0}' could not be opened -- {1}|
 |CS0012|Error|The type '{0}' is defined in an assembly that is not referenced. You must add a reference to assembly '{1}'.|
@@ -1240,8 +1240,8 @@
 
 ## Statistics
 
-|Level|Count|
-|-----|-----|
+|Severity|Count|
+|--------|-----|
 |Fatal|7|
 |Error|1054|
 |Warning|169|

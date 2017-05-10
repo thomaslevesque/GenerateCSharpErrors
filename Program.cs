@@ -62,7 +62,7 @@ namespace GenerateCSharpErrors
             return dictionary;
         }
 
-        private static void WriteMarkdownTable(IEnumerable<ErrorCode> errorCodes, TextWriter writer)
+        private static void WriteMarkdownTable(IReadOnlyList<ErrorCode> errorCodes, TextWriter writer)
         {
             writer.WriteLine("# All C# errors and warnings");
             
@@ -90,6 +90,7 @@ namespace GenerateCSharpErrors
                 if (g.Key == DiagnosticLevel.Unknown) continue;
                 writer.WriteLine($"|{g.Key}|{g.Count()}|");
             }
+            writer.WriteLine($"|**Total**|**{errorCodes.Count}**|");
         }
 
         class ErrorCode

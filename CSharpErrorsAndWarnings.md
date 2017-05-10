@@ -1247,3 +1247,4 @@
 |Warning|169|
 |Info|1|
 |Hidden|2|
+|**Total**|**1235**|

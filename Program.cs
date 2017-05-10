@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -223,10 +224,18 @@ namespace GenerateCSharpErrors
             public string Output { get; set; }
             public bool IncludeLinks { get; set; }
 
-            private static readonly string[] _helpOptions = { "-h", "-?", "--help" };
-            private static readonly string[] _outputOptions = { "-o", "--output" };
-            private static readonly string[] _linksOptions = { "-l", "--link" };
-
+            private static readonly IImmutableSet<string> _helpOptions =
+                ImmutableHashSet.Create(
+                    StringComparer.OrdinalIgnoreCase,
+                    "-h", "-?", "--help");
+            private static readonly IImmutableSet<string> _outputOptions =
+                ImmutableHashSet.Create(
+                    StringComparer.OrdinalIgnoreCase,
+                    "-o", "--output");
+            private static readonly IImmutableSet<string> _linksOptions =
+                ImmutableHashSet.Create(
+                    StringComparer.OrdinalIgnoreCase,
+                    "-l", "--link");
             public static (CommandLineOptions options, int? exitCode) Parse(string[] args)
             {
                 var options = new CommandLineOptions();

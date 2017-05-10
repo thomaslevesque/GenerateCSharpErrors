@@ -1,2 +1,2 @@
 dotnet restore
-dotnet run | Out-File CSharpErrorsAndWarnings.md -Encoding utf8
+dotnet run -- -o CSharpErrorsAndWarnings.md

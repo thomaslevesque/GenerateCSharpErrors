@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -11,10 +12,29 @@ namespace GenerateCSharpErrors
 {
     class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
+            var (options, exitCode) = CommandLineOptions.Parse(args);
+            if (exitCode.HasValue)
+                Environment.Exit(exitCode.Value);
+
             var errorCodes = GetErrorCodes();
-            WriteMarkdownTable(errorCodes, Console.Out);
+            Stream stream = null;
+            TextWriter writer = Console.Out;
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(options.Output))
+                {
+                    stream = File.Open(options.Output, FileMode.Create, FileAccess.Write);
+                    writer = new StreamWriter(stream, Encoding.UTF8);
+                }
+                WriteMarkdownTable(errorCodes, writer);
+            }
+            finally
+            {
+                writer.Flush();
+                stream?.Dispose();
+            }
         }
 
         const string ErrorCodesUrl = "https://raw.githubusercontent.com/dotnet/roslyn/master/src/Compilers/CSharp/Portable/Errors/ErrorCode.cs";
@@ -154,6 +174,75 @@ namespace GenerateCSharpErrors
             Warning,
             Error,
             Fatal
+        }
+
+        class CommandLineOptions
+        {
+            public string Output { get; set; }
+
+            private static readonly string[] _helpOptions =
+            {
+                "-h",
+                "-?",
+                "--help"
+            };
+
+            private static readonly string[] _outputOptions =
+            {
+                "-o",
+                "--output"
+            };
+
+            public static (CommandLineOptions options, int? exitCode) Parse(string[] args)
+            {
+                var options = new CommandLineOptions();
+
+                for (int i = 0; i < args.Length; i++)
+                {
+                    if (_helpOptions.Contains(args[i]))
+                    {
+                        ShowUsage();
+                        return (options, 0);
+                    }
+                    else if (_outputOptions.Contains(args[i]))
+                    {
+                        if (i + 1 >= args.Length)
+                        {
+                            ShowUsage($"Missing filename for {args[i]} option");
+                            return (options, 1);
+                        }
+                        options.Output = args[++i];
+                    }
+                    else
+                    {
+                        ShowUsage($"Unknown option: {args[i]}");
+                        return (options, 1);
+                    }
+                }
+                
+                return (options, null);
+            }
+
+            private static void ShowUsage(string error = null)
+            {
+                if (!string.IsNullOrEmpty(error))
+                {
+                    var normalColor = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(error);
+                    Console.ForegroundColor = normalColor;
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine("C# errors and warnings list generator");
+                Console.WriteLine();
+                Console.WriteLine("Usage: GenerateCSharpErrors.exe [options]");
+                Console.WriteLine();
+                Console.WriteLine("Options:");
+                Console.WriteLine("  -h|--help              Show this help message");
+                Console.WriteLine("  -o|--output <file>     Output to the specified file (default: output to the console)");
+                Console.WriteLine();
+            }
         }
     }
 }

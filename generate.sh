@@ -1,2 +1,2 @@
 dotnet restore
-dotnet run > CSharpErrorsAndWarnings.md
+dotnet run -- -o CSharpErrorsAndWarnings.md

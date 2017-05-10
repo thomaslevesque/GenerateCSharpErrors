@@ -2,20 +2,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Launch (console)",
-            "type": "clr",
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}\\bin\\Debug\\net47\\GenerateCSharpErrors.exe",
+            "program": "${workspaceRoot}\\bin\\Debug\\netcoreapp1.0\\GenerateCSharpErrors.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
             "console": "internalConsole",
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
-            "name": ".NET Attach",
-            "type": "clr",
+            "name": ".NET Core Attach",
+            "type": "coreclr",
             "request": "attach",
             "processId": "${command:pickProcess}"
         }

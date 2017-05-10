@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
+using System.Net.Http;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -22,10 +22,10 @@ namespace GenerateCSharpErrors
 
         private static IReadOnlyList<ErrorCode> GetErrorCodes()
         {
-            using (var wc = new WebClient())
+            using (var client = new HttpClient())
             {
-                var enumMembers = GetErrorCodeEnumMembers(wc);
-                var dictionary = GetResourceDictionary(wc);
+                var enumMembers = GetErrorCodeEnumMembers(client);
+                var dictionary = GetResourceDictionary(client);
                 
                 var errorCodes =
                     enumMembers
@@ -39,9 +39,9 @@ namespace GenerateCSharpErrors
             }
         }
 
-        private static IEnumerable<EnumMemberDeclarationSyntax> GetErrorCodeEnumMembers(WebClient wc)
+        private static IEnumerable<EnumMemberDeclarationSyntax> GetErrorCodeEnumMembers(HttpClient client)
         {
-            string errorCodesFileContent = wc.DownloadString(ErrorCodesUrl);
+            string errorCodesFileContent = client.GetStringAsync(ErrorCodesUrl).Result;
             var syntaxTree = CSharpSyntaxTree.ParseText(errorCodesFileContent);
             var root = syntaxTree.GetRoot();
             var enumDeclaration =
@@ -51,9 +51,9 @@ namespace GenerateCSharpErrors
             return enumDeclaration.Members;
         }
 
-        private static IReadOnlyDictionary<string, string> GetResourceDictionary(WebClient wc)
+        private static IReadOnlyDictionary<string, string> GetResourceDictionary(HttpClient client)
         {
-            string resourcesFileContent = wc.DownloadString(ErrorResourcesUrl);
+            string resourcesFileContent = client.GetStringAsync(ErrorResourcesUrl).Result;
             var doc = XDocument.Parse(resourcesFileContent);
             var dictionary =
                 doc.Root.Elements("data")

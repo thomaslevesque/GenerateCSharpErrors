@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Launch (console)",
+            "type": "clr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceRoot}\\bin\\Debug\\net47\\GenerateCSharpErrors.exe",
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "console": "internalConsole",
+            "stopAtEntry": true,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "name": ".NET Attach",
+            "type": "clr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        }
+    ]
+}

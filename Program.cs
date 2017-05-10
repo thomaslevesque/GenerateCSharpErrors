@@ -27,12 +27,11 @@ namespace GenerateCSharpErrors
                 var enumMembers = GetErrorCodeEnumMembers(client);
                 var dictionary = GetResourceDictionary(client);
                 
+                string GetMessage(string name) => dictionary.TryGetValue(name, out var msg) ? msg : "";
+
                 var errorCodes =
                     enumMembers
-                        .Select(m =>
-                            ErrorCode.Parse(
-                                m,
-                                dictionary.TryGetValue(m.Identifier.ValueText, out var message) ? message : ""))
+                        .Select(m => ErrorCode.Create(m, GetMessage(m.Identifier.ValueText)))
                         .ToList();
 
                 return errorCodes;
@@ -75,15 +74,27 @@ namespace GenerateCSharpErrors
             writer.WriteLine("|----|-----|-------|");
             foreach (var e in errorCodes)
             {
-                if (e.Value == 0)
-                    continue;
+                if (e.Level== DiagnosticLevel.Unknown) continue;
                 writer.WriteLine($"|{e.Code}|{e.Level}|{e.Message}|");
+            }
+
+            writer.WriteLine();
+            writer.WriteLine("## Statistics");
+            writer.WriteLine();
+
+            var lookup = errorCodes.OrderByDescending(e => e.Level).ToLookup(e => e.Level);
+            writer.WriteLine("|Level|Count|");
+            writer.WriteLine("|-----|-----|");
+            foreach (var g in lookup)
+            {
+                if (g.Key == DiagnosticLevel.Unknown) continue;
+                writer.WriteLine($"|{g.Key}|{g.Count()}|");
             }
         }
 
         class ErrorCode
         {
-            public static ErrorCode Parse(EnumMemberDeclarationSyntax member, string message)
+            public static ErrorCode Create(EnumMemberDeclarationSyntax member, string message)
             {
                 string name = member.Identifier.ValueText;
                 if (name == "Void" || name == "Unknown")

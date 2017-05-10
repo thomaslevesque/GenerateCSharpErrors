@@ -1237,3 +1237,13 @@
 |CS9001|Error|Use of default literal is not valid in this context|
 |CS9002|Warning|Did you mean to use the default switch label (`default:`) rather than `case default:`? If you really mean to use the default literal, consider `case (default):` or another literal (`case 0:` or `case null:`) as appropriate.|
 |CS9003|Error|An expression of type '{0}' cannot be handled by a pattern of type '{1}' in C# {2}. Please use language version {3} or greater.|
+
+## Statistics
+
+|Level|Count|
+|-----|-----|
+|Fatal|7|
+|Error|1054|
+|Warning|169|
+|Info|1|
+|Hidden|2|

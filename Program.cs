@@ -5,10 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using SharpYaml.Serialization;
 
 namespace GenerateCSharpErrors
 {
@@ -35,7 +35,7 @@ namespace GenerateCSharpErrors
         const string ErrorCodesUrl = "https://raw.githubusercontent.com/dotnet/roslyn/master/src/Compilers/CSharp/Portable/Errors/ErrorCode.cs";
         const string ErrorResourcesUrl = "https://raw.githubusercontent.com/dotnet/roslyn/master/src/Compilers/CSharp/Portable/CSharpResources.resx";
         const string DocUrlTemplate = "https://docs.microsoft.com/en-us/dotnet/articles/csharp/language-reference/compiler-messages/cs{0:D4}";
-        const string DocTableOfContentsUrl = "https://raw.githubusercontent.com/dotnet/docs/master/docs/csharp/language-reference/compiler-messages/toc.md";
+        const string DocTableOfContentsUrl = "https://raw.githubusercontent.com/dotnet/docs/master/docs/csharp/language-reference/compiler-messages/toc.yml";
 
         private static IReadOnlyList<ErrorCode> GetErrorCodes(CommandLineOptions options)
         {
@@ -43,10 +43,12 @@ namespace GenerateCSharpErrors
             {
                 var enumMembers = GetErrorCodeEnumMembers(client);
                 var messages = GetResourceDictionary(client);
-                var docLinks = GetDocumentationLinks(client, options);
+                var documentedCodes = options.IncludeLinks ? GetDocumentedCodes(client) : null;
                 
                 string GetMessage(string name) => messages.TryGetValue(name, out var msg) ? msg : "";
-                string GetDocLink(int value) => docLinks.TryGetValue(value, out var link) ? link : "";
+                string GetDocLink(int value) => options.IncludeLinks && documentedCodes.Contains(value)
+                    ? string.Format(DocUrlTemplate, value)
+                    : "";
 
                 var errorCodes =
                     enumMembers
@@ -81,23 +83,24 @@ namespace GenerateCSharpErrors
             return dictionary;
         }
 
-        private static IReadOnlyDictionary<int, string> GetDocumentationLinks(HttpClient client, CommandLineOptions options)
+        private static ISet<int> GetDocumentedCodes(HttpClient client)
         {
-            var links = new Dictionary<int, string>();
-            if (!options.IncludeLinks)
-                return links;
+            string tocContent = client.GetStringAsync(DocTableOfContentsUrl).Result;
+            var serializer = new SharpYaml.Serialization.Serializer();
+            var toc = serializer.Deserialize<TocNode[]>(tocContent);
+            var codes = toc.SelectMany(n => n.Items)
+                .Select(n => int.Parse(Path.GetFileNameWithoutExtension(n.Href).Substring(2)));
+            return new HashSet<int>(codes);
+        }
 
-            string toc = client.GetStringAsync(DocTableOfContentsUrl).Result;
-            var regex = new Regex(@"\]\(cs(?<value>\d{4}).md\)", RegexOptions.IgnoreCase);
-            var matches = regex.Matches(toc);
-            foreach (Match m in matches)
-            {
-                int value = int.Parse(m.Groups["value"].Value);
-                var url = string.Format(DocUrlTemplate, value);
-                links.Add(value, url);
-            }
-
-            return links;
+        private class TocNode
+        {
+            [YamlMember("name")]
+            public string Name { get; set; }
+            [YamlMember("href")]
+            public string Href { get; set; }
+            [YamlMember("items")]
+            public TocNode[] Items { get; set; }
         }
 
         private static TextWriter GetOutputWriter(CommandLineOptions options)

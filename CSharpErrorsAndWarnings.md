@@ -671,7 +671,7 @@
 |CS1631|Error|Cannot yield a value in the body of a catch clause|
 |CS1632|Error|Control cannot leave the body of an anonymous method or lambda expression|
 |CS1633|Warning|Unrecognized #pragma directive|
-|CS1634|Warning|Expected disable, restore or enable|
+|CS1634|Warning|Expected 'disable' or 'restore'|
 |CS1635|Warning|Cannot restore warning 'CS{0}' because it was disabled globally|
 |CS1636|Error|__arglist is not allowed in the parameter list of iterators|
 |CS1637|Error|Iterators cannot have unsafe parameters or yield types|
@@ -892,6 +892,7 @@
 |CS2043|Error|'id#' syntax is no longer supported. Use '$id' instead.|
 |CS2044|Error|/sourcelink switch is only supported when emitting PDB.|
 |CS2045|Error|/embed switch is only supported when emitting a PDB.|
+|CS2046|Error|Command-line syntax error: '{0}' is not a valid value for the '{1}' option. The value must be of the form '{2}'.|
 |CS3000|Warning|Methods with variable arguments are not CLS-compliant|
 |CS3001|Warning|Argument type '{0}' is not CLS-compliant|
 |CS3002|Warning|Return type of '{0}' is not CLS-compliant|
@@ -1106,7 +1107,7 @@
 |CS8092|Error|Expression or declaration statement expected.|
 |CS8093|Error|Extension method groups are not allowed as an argument to 'nameof'.|
 |CS8094|Warning|Alignment value {0} has a magnitude greater than {1} and may result in a large formatted string.|
-|CS8095|Error|Length of String constant exceeds current memory limit.  Try splitting the string into multiple constants.|
+|CS8095|Error|Length of String constant resulting from concatenation exceeds System.Int32.MaxValue.  Try splitting the string into multiple constants.|
 |CS8096|Error|Debug entry point must be a definition of a method declared in the current compilation.|
 |CS8097|Error|#load is only allowed in scripts|
 |CS8098|Error|Cannot use #load after first token in file|
@@ -1223,9 +1224,7 @@
 |CS8308|Error|Do not use refout when using refonly.|
 |CS8309|Error|Cannot compile net modules when using /refout or /refonly.|
 |CS8310|Error|Operator '{0}' cannot be applied to operand '{1}'|
-|CS8311|Error|Cannot use a default literal as an argument to a dynamically dispatched operation.|
 |CS8312|Error|Use of default literal is not valid in this context|
-|CS8313|Error|A default literal 'default' is not valid as a case constant. Use another literal (e.g. '0' or 'null') as appropriate. If you intended to write the default label, use 'default:' without 'case'.|
 |CS8314|Error|An expression of type '{0}' cannot be handled by a pattern of type '{1}' in C# {2}. Please use language version {3} or greater.|
 |CS8315|Error|Operator '{0}' is ambiguous on operands 'default' and 'default'|
 |CS8320|Error|Feature '{0}' is not available in C# 7.2. Please use language version {1} or greater.|
@@ -1292,7 +1291,6 @@
 |CS8388|Error|An out variable cannot be declared as a ref local|
 |CS8400|Error|Feature '{0}' is not available in C# 8.0. Please use language version {1} or greater.|
 |CS8401|Error|To use '@$' instead of '$@' for an interpolated verbatim string, please use language version '{0}' or greater.|
-|CS8402|Warning|'default' is converted to 'null', not 'default({0})'|
 |CS8403|Error|Method '{0}' with an iterator block must be 'async' to return '{1}'|
 |CS8410|Error|'{0}': type used in an async using statement must be implicitly convertible to 'System.IAsyncDisposable' or implement a suitable 'DisposeAsync' method.|
 |CS8411|Error|Asynchronous foreach statement cannot operate on variables of type '{0}' because '{0}' does not contain a suitable public instance definition for '{1}'|
@@ -1318,7 +1316,7 @@
 |CS8506|Error|No best type was found for the switch expression.|
 |CS8507|Error|A single-element deconstruct pattern requires some other syntax for disambiguation. It is recommended to add a discard designator '_' after the close paren ')'.|
 |CS8508|Error|The syntax 'var' for a pattern is not permitted to refer to a type, but '{0}' is in scope here.|
-|CS8509|Warning|The switch expression does not handle all possible inputs (it is not exhaustive).|
+|CS8509|Warning|The switch expression does not handle all possible values of its input type (it is not exhaustive).|
 |CS8510|Error|The pattern has already been handled by a previous arm of the switch expression.|
 |CS8511|Error|An expression of type '{0}' cannot be handled by a pattern of type '{1}'. Please use language version '{2}' or greater to match an open type with a constant pattern.|
 |CS8512|Warning|The name '_' refers to the constant, not the discard pattern. Use 'var _' to discard the value, or '@_' to refer to a constant by that name.|
@@ -1342,17 +1340,18 @@
 |CS8604|Warning|Possible null reference argument for parameter '{0}' in '{1}'.|
 |CS8605|Warning|Unboxing a possibly null value.|
 |CS8606|Warning|Possible null reference assignment to iteration variable|
-|CS8607|Warning|A possible null value may not be passed to a target marked with the [DisallowNull] attribute|
+|CS8607|Warning|A possible null value may not be assigned to a target marked with the [DisallowNull] attribute|
+|CS8608|Warning|Nullability of reference types in type doesn't match overridden member.|
 |CS8609|Warning|Nullability of reference types in return type doesn't match overridden member.|
 |CS8610|Warning|Nullability of reference types in type of parameter '{0}' doesn't match overridden member.|
 |CS8611|Warning|Nullability of reference types in type of parameter '{0}' doesn't match partial method declaration.|
-|CS8612|Warning|Nullability of reference types in type doesn't match implicitly implemented member '{0}'.|
-|CS8613|Warning|Nullability of reference types in return type doesn't match implicitly implemented member '{0}'.|
-|CS8614|Warning|Nullability of reference types in type of parameter '{0}' doesn't match implicitly implemented member '{1}'.|
+|CS8612|Warning|Nullability of reference types in type of '{0}' doesn't match implicitly implemented member '{1}'.|
+|CS8613|Warning|Nullability of reference types in return type of '{0}' doesn't match implicitly implemented member '{1}'.|
+|CS8614|Warning|Nullability of reference types in type of parameter '{0}' of '{1}' doesn't match implicitly implemented member '{2}'.|
 |CS8615|Warning|Nullability of reference types in type doesn't match implemented member '{0}'.|
 |CS8616|Warning|Nullability of reference types in return type doesn't match implemented member '{0}'.|
 |CS8617|Warning|Nullability of reference types in type of parameter '{0}' doesn't match implemented member '{1}'.|
-|CS8618|Warning|Non-nullable {0} '{1}' is uninitialized.|
+|CS8618|Warning|Non-nullable {0} '{1}' is uninitialized. Consider declaring the {0} as nullable.|
 |CS8619|Warning|Nullability of reference types in value of type '{0}' doesn't match target type '{1}'.|
 |CS8620|Warning|Argument of type '{0}' cannot be used for parameter '{2}' of type '{1}' in '{3}' due to differences in the nullability of reference types.|
 |CS8621|Warning|Nullability of reference types in return type of '{0}' doesn't match the target delegate '{1}'.|
@@ -1366,11 +1365,11 @@
 |CS8629|Warning|Nullable value type may be null.|
 |CS8630|Error|Invalid '{0}' value: '{1}' for C# {2}. Please use language version '{3}' or greater.|
 |CS8631|Warning|The type '{3}' cannot be used as type parameter '{2}' in the generic type or method '{0}'. Nullability of type argument '{3}' doesn't match constraint type '{1}'.|
-|CS8632|Warning|The annotation for nullable reference types should only be used in code within a '#nullable' context.|
+|CS8632|Warning|The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.|
 |CS8633|Warning|Nullability in constraints for type parameter '{0}' of method '{1}' doesn't match the constraints for type parameter '{2}' of interface method '{3}'. Consider using an explicit interface implementation instead.|
 |CS8634|Warning|The type '{2}' cannot be used as type parameter '{1}' in the generic type or method '{0}'. Nullability of type argument '{2}' doesn't match 'class' constraint.|
 |CS8635|Error|Unexpected character sequence '...'|
-|CS8636|Error|Invalid option '{0}' for /nullable; must be 'disable', 'enable' or 'warnings'|
+|CS8636|Error|Invalid option '{0}' for /nullable; must be 'disable', 'enable', 'warnings' or 'annotations'|
 |CS8637|Error|Expected 'enable', 'disable', or 'restore'|
 |CS8638|Warning|Conditional access may produce a null value when '{0}' is a non-nullable reference type.|
 |CS8639|Error|The typeof operator cannot be used on a nullable reference type|
@@ -1402,6 +1401,9 @@
 |CS8665|Error|Method '{0}' specifies a 'class' constraint for type parameter '{1}', but corresponding type parameter '{2}' of overridden or explicitly implemented method '{3}' is not a reference type.|
 |CS8666|Error|Method '{0}' specifies a 'struct' constraint for type parameter '{1}', but corresponding type parameter '{2}' of overridden or explicitly implemented method '{3}' is not a non-nullable value type.|
 |CS8667|Warning|Partial method declarations of '{0}' have inconsistent nullability in constraints for type parameter '{1}'|
+|CS8668|Error|Expected 'warnings', 'annotations', or end of directive|
+|CS8669|Warning|The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. Auto-generated code requires an explicit '#nullable' directive in source.|
+|CS8670|Warning|Object or collection initializer implicitly dereferences possibly null member '{0}'.|
 |CS8700|Error|Multiple analyzer config files cannot be in the same directory ('{0}').|
 |CS8701|Error|Target runtime doesn't support default interface implementation.|
 |CS8702|Error|'{0}' cannot implement interface member '{1}' in type '{2}' because the target runtime doesn't support default interface implementation.|
@@ -1414,14 +1416,19 @@
 |CS8712|Error|'{0}': abstract event cannot use event accessor syntax|
 |CS8713|Error|The 'notnull' constraint must come before any other constraints|
 |CS8714|Warning|The type '{2}' cannot be used as type parameter '{1}' in the generic type or method '{0}'. Nullability of type argument '{2}' doesn't match 'notnull' constraint.|
+|CS8715|Error|Duplicate null suppression operator ('!')|
+|CS8716|Error|There is no target type for the default literal.|
+|CS8717|Warning|A member returning a [MaybeNull] value introduces a null value when '{0}' is a non-nullable reference type.|
+|CS8750|Error|Type '{0}' cannot be embedded because it has a re-abstraction of a member from base interface. Consider setting the 'Embed Interop Types' property to false.|
+|CS8751|Error|Internal error in the C# compiler.|
 
 ## Statistics
 
 |Severity|Count|
 |--------|-----|
 |Fatal|7|
-|Error|1177|
-|Warning|223|
+|Error|1181|
+|Warning|226|
 |Info|1|
 |Hidden|2|
-|**Total**|**1412**|
+|**Total**|**1419**|

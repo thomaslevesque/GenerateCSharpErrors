@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -14,7 +15,7 @@ namespace GenerateCSharpErrors
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var (options, exitCode) = CommandLineOptions.Parse(args);
 
@@ -24,20 +25,21 @@ namespace GenerateCSharpErrors
                 return;
             }
 
-            var errorCodes = GetErrorCodes(options);
+            var errorCodes = GetErrorCodesAsync(options);
             
             using (var writer = GetOutputWriter(options))
             {
-                WriteMarkdownTable(errorCodes, writer);
+                await WriteMarkdownTableAsync(errorCodes, writer);
             }
         }
 
         const string ErrorCodesUrl = "https://raw.githubusercontent.com/dotnet/roslyn/master/src/Compilers/CSharp/Portable/Errors/ErrorCode.cs";
         const string ErrorResourcesUrl = "https://raw.githubusercontent.com/dotnet/roslyn/master/src/Compilers/CSharp/Portable/CSharpResources.resx";
         const string DocUrlTemplate = "https://docs.microsoft.com/en-us/dotnet/articles/csharp/language-reference/compiler-messages/cs{0:D4}";
+        const string DocUrlTemplateFallback = "https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs{0:D4}";
         const string DocTableOfContentsUrl = "https://raw.githubusercontent.com/dotnet/docs/master/docs/csharp/language-reference/compiler-messages/toc.yml";
 
-        private static IReadOnlyList<ErrorCode> GetErrorCodes(CommandLineOptions options)
+        private static async IAsyncEnumerable<ErrorCode> GetErrorCodesAsync(CommandLineOptions options)
         {
             using (var client = new HttpClient())
             {
@@ -46,20 +48,40 @@ namespace GenerateCSharpErrors
                 var documentedCodes = options.IncludeLinks ? GetDocumentedCodes(client) : null;
                 
                 string GetMessage(string name) => messages.TryGetValue(name, out var msg) ? msg : "";
-                string GetDocLink(int value) => options.IncludeLinks && documentedCodes.Contains(value)
-                    ? string.Format(DocUrlTemplate, value)
-                    : "";
+                async Task<string> GetDocLinkAsync(int value)
+                {
+                    if (options.IncludeLinks)
+                    {
+                        var link = documentedCodes.Contains(value)
+                            ? string.Format(DocUrlTemplate, value)
+                            : string.Format(DocUrlTemplateFallback, value);
 
-                var errorCodes =
-                    enumMembers
-                        .Select(m => ErrorCode.Create(m, GetMessage, GetDocLink))
-                        .ToList();
+                        if (options.CheckLinks)
+                        {
+                            using var request = new HttpRequestMessage(HttpMethod.Head, link);
+                            using var response = await client.SendAsync(request);
+                            if (!response.IsSuccessStatusCode)
+                                link = null;
+                        }
+                        
+                        return link;
+                    }
 
-                return errorCodes;
+                    return null;
+                }
+
+                var errorCodes = new List<ErrorCode>();
+                int count = 0;
+                foreach (var m in enumMembers)
+                {
+                    count++;
+                    Console.WriteLine($"Processing code {count}/{enumMembers.Count} ({(double)count/enumMembers.Count:P0})");
+                    yield return await ErrorCode.CreateAsync(m, GetMessage, GetDocLinkAsync);
+                }
             }
         }
 
-        private static IEnumerable<EnumMemberDeclarationSyntax> GetErrorCodeEnumMembers(HttpClient client)
+        private static IReadOnlyList<EnumMemberDeclarationSyntax> GetErrorCodeEnumMembers(HttpClient client)
         {
             string errorCodesFileContent = client.GetStringAsync(ErrorCodesUrl).Result;
             var syntaxTree = CSharpSyntaxTree.ParseText(errorCodesFileContent);
@@ -116,7 +138,7 @@ namespace GenerateCSharpErrors
             }
         }
 
-        private static void WriteMarkdownTable(IReadOnlyList<ErrorCode> errorCodes, TextWriter writer)
+        private static async Task WriteMarkdownTableAsync(IAsyncEnumerable<ErrorCode> errorCodes, TextWriter writer)
         {
             writer.WriteLine("# All C# errors and warnings");
             
@@ -129,11 +151,14 @@ namespace GenerateCSharpErrors
                     ? e.Code
                     : $"[{e.Code}]({e.Link})";
 
+            var stats = new Dictionary<Severity, int>();
+
             writer.WriteLine("|Code|Severity|Message|");
             writer.WriteLine("|----|--------|-------|");
-            foreach (var e in errorCodes)
+            await foreach (var e in errorCodes)
             {
-                if (e.Severity== Severity.Unknown) continue;
+                if (e.Severity == Severity.Unknown) continue;
+                stats[e.Severity] = stats.GetValueOrDefault(e.Severity) + 1;
                 writer.WriteLine($"|{Link(e)}|{e.Severity}|{e.Message}|");
             }
 
@@ -141,23 +166,21 @@ namespace GenerateCSharpErrors
             writer.WriteLine("## Statistics");
             writer.WriteLine();
 
-            var lookup = errorCodes.OrderByDescending(e => e.Severity).ToLookup(e => e.Severity);
             writer.WriteLine("|Severity|Count|");
             writer.WriteLine("|--------|-----|");
-            foreach (var g in lookup)
+            foreach (var kvp in stats.OrderBy(_ => _.Key))
             {
-                if (g.Key == Severity.Unknown) continue;
-                writer.WriteLine($"|{g.Key}|{g.Count()}|");
+                writer.WriteLine($"|{kvp.Key}|{kvp.Value}|");
             }
-            writer.WriteLine($"|**Total**|**{errorCodes.Count}**|");
+            writer.WriteLine($"|**Total**|**{stats.Sum(kvp => kvp.Value)}**|");
         }
 
         class ErrorCode
         {
-            public static ErrorCode Create(
+            public static async Task<ErrorCode> CreateAsync(
                 EnumMemberDeclarationSyntax member,
                 Func<string, string> getMessageByName,
-                Func<int, string> getLinkByValue)
+                Func<int, Task<string>> getLinkByValue)
             {
                 string name = member.Identifier.ValueText;
                 if (name == "Void" || name == "Unknown")
@@ -172,7 +195,7 @@ namespace GenerateCSharpErrors
                         value,
                         ParseSeverity(name.Substring(0, 3)),
                         getMessageByName(name),
-                        getLinkByValue(value));
+                        await getLinkByValue(value));
                 }
             }
             
@@ -226,6 +249,7 @@ namespace GenerateCSharpErrors
         {
             public string Output { get; set; }
             public bool IncludeLinks { get; set; }
+            public bool CheckLinks { get; set; }
 
             private static readonly IImmutableSet<string> _helpOptions =
                 ImmutableHashSet.Create(
@@ -239,6 +263,12 @@ namespace GenerateCSharpErrors
                 ImmutableHashSet.Create(
                     StringComparer.OrdinalIgnoreCase,
                     "-l", "--link");
+
+            private static readonly IImmutableSet<string> _checkLinksOptions =
+                ImmutableHashSet.Create(
+                    StringComparer.OrdinalIgnoreCase,
+                    "-c", "--check-links");
+
             public static (CommandLineOptions options, int? exitCode) Parse(string[] args)
             {
                 var options = new CommandLineOptions();
@@ -264,6 +294,10 @@ namespace GenerateCSharpErrors
                     else if (_linksOptions.Contains(option))
                     {
                         options.IncludeLinks = true;
+                    }
+                    else if (_checkLinksOptions.Contains(option))
+                    {
+                        options.CheckLinks = true;
                     }
                     else
                     {
@@ -294,6 +328,7 @@ namespace GenerateCSharpErrors
                 Console.WriteLine("  -h|--help              Show this help message");
                 Console.WriteLine("  -o|--output <file>     Output to the specified file (default: output to the console)");
                 Console.WriteLine("  -l|--link              Include links to documentation when they exist");
+                Console.WriteLine("  -c|--check-links       Check links to documentation and only include them if they're valid");
                 Console.WriteLine();
             }
         }

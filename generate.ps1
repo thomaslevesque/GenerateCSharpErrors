@@ -1,2 +1,2 @@
 dotnet restore
-dotnet run -- --output CSharpErrorsAndWarnings.md --link
+dotnet run -- --output CSharpErrorsAndWarnings.md --link --check-links

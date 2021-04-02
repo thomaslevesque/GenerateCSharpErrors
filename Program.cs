@@ -40,9 +40,9 @@ namespace GenerateCSharpErrors
         private static async IAsyncEnumerable<ErrorCode> GetErrorCodesAsync(CommandLineOptions options)
         {
             using var client = new HttpClient();
-            var enumMembers = GetErrorCodeEnumMembers(client, options.BranchOrTag);
-            var messages = GetResourceDictionary(client, options.BranchOrTag);
-            var documentedCodes = options.IncludeLinks ? GetDocumentedCodes(client) : null;
+            var enumMembers = await GetErrorCodeEnumMembersAsync(client, options.BranchOrTag);
+            var messages = await GetResourceDictionaryAsync(client, options.BranchOrTag);
+            var documentedCodes = options.IncludeLinks ? await GetDocumentedCodesAsync(client) : null;
 
             string GetMessage(string name) => messages.TryGetValue(name, out var msg) ? msg : "";
             async Task<string> GetDocLinkAsync(int value)
@@ -77,10 +77,10 @@ namespace GenerateCSharpErrors
             }
         }
 
-        private static IReadOnlyList<EnumMemberDeclarationSyntax> GetErrorCodeEnumMembers(HttpClient client, string branchOrTag)
+        private static async Task<IReadOnlyList<EnumMemberDeclarationSyntax>> GetErrorCodeEnumMembersAsync(HttpClient client, string branchOrTag)
         {
             var url = string.Format(ErrorCodesUrlFormat, branchOrTag);
-            string errorCodesFileContent = client.GetStringAsync(url).Result;
+            string errorCodesFileContent = await client.GetStringAsync(url);
             var syntaxTree = CSharpSyntaxTree.ParseText(errorCodesFileContent);
             var root = syntaxTree.GetRoot();
             var enumDeclaration =
@@ -90,10 +90,10 @@ namespace GenerateCSharpErrors
             return enumDeclaration.Members;
         }
 
-        private static IReadOnlyDictionary<string, string> GetResourceDictionary(HttpClient client, string branchOrTag)
+        private static async Task<IReadOnlyDictionary<string, string>> GetResourceDictionaryAsync(HttpClient client, string branchOrTag)
         {
             var url = string.Format(ErrorResourcesUrl, branchOrTag);
-            string resourcesFileContent = client.GetStringAsync(url).Result;
+            string resourcesFileContent = await client.GetStringAsync(url);
             var doc = XDocument.Parse(resourcesFileContent);
             var dictionary =
                 doc.Root.Elements("data")
@@ -103,13 +103,13 @@ namespace GenerateCSharpErrors
             return dictionary;
         }
 
-        private static ISet<int> GetDocumentedCodes(HttpClient client)
+        private static async Task<ISet<int>> GetDocumentedCodesAsync(HttpClient client)
         {
-            string tocContent = client.GetStringAsync(DocTableOfContentsUrl).Result;
+            string tocContent = await client.GetStringAsync(DocTableOfContentsUrl);
             var serializer = new SharpYaml.Serialization.Serializer();
             var toc = serializer.Deserialize<TocNode[]>(tocContent);
             var codes = toc.SelectMany(n => n.Items)
-                .Select(n => int.Parse(Path.GetFileNameWithoutExtension(n.Href).Substring(2)));
+                .Select(n => int.Parse(Path.GetFileNameWithoutExtension(n.Href)[2..]));
             return new HashSet<int>(codes);
         }
 

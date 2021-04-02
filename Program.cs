@@ -26,15 +26,13 @@ namespace GenerateCSharpErrors
             }
 
             var errorCodes = GetErrorCodesAsync(options);
-            
-            using (var writer = GetOutputWriter(options))
-            {
-                await WriteMarkdownTableAsync(errorCodes, writer);
-            }
+
+            using var writer = GetOutputWriter(options);
+            await WriteMarkdownTableAsync(errorCodes, writer);
         }
 
-        const string ErrorCodesUrl = "https://raw.githubusercontent.com/dotnet/roslyn/master/src/Compilers/CSharp/Portable/Errors/ErrorCode.cs";
-        const string ErrorResourcesUrl = "https://raw.githubusercontent.com/dotnet/roslyn/master/src/Compilers/CSharp/Portable/CSharpResources.resx";
+        const string ErrorCodesUrlFormat = "https://raw.githubusercontent.com/dotnet/roslyn/{0}/src/Compilers/CSharp/Portable/Errors/ErrorCode.cs";
+        const string ErrorResourcesUrl = "https://raw.githubusercontent.com/dotnet/roslyn/{0}/src/Compilers/CSharp/Portable/CSharpResources.resx";
         const string DocUrlTemplate = "https://docs.microsoft.com/en-us/dotnet/articles/csharp/language-reference/compiler-messages/cs{0:D4}";
         const string DocUrlTemplateFallback = "https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs{0:D4}";
         const string DocTableOfContentsUrl = "https://raw.githubusercontent.com/dotnet/docs/master/docs/csharp/language-reference/compiler-messages/toc.yml";
@@ -42,8 +40,8 @@ namespace GenerateCSharpErrors
         private static async IAsyncEnumerable<ErrorCode> GetErrorCodesAsync(CommandLineOptions options)
         {
             using var client = new HttpClient();
-            var enumMembers = GetErrorCodeEnumMembers(client);
-            var messages = GetResourceDictionary(client);
+            var enumMembers = GetErrorCodeEnumMembers(client, options.BranchOrTag);
+            var messages = GetResourceDictionary(client, options.BranchOrTag);
             var documentedCodes = options.IncludeLinks ? GetDocumentedCodes(client) : null;
 
             string GetMessage(string name) => messages.TryGetValue(name, out var msg) ? msg : "";
@@ -79,9 +77,10 @@ namespace GenerateCSharpErrors
             }
         }
 
-        private static IReadOnlyList<EnumMemberDeclarationSyntax> GetErrorCodeEnumMembers(HttpClient client)
+        private static IReadOnlyList<EnumMemberDeclarationSyntax> GetErrorCodeEnumMembers(HttpClient client, string branchOrTag)
         {
-            string errorCodesFileContent = client.GetStringAsync(ErrorCodesUrl).Result;
+            var url = string.Format(ErrorCodesUrlFormat, branchOrTag);
+            string errorCodesFileContent = client.GetStringAsync(url).Result;
             var syntaxTree = CSharpSyntaxTree.ParseText(errorCodesFileContent);
             var root = syntaxTree.GetRoot();
             var enumDeclaration =
@@ -91,9 +90,10 @@ namespace GenerateCSharpErrors
             return enumDeclaration.Members;
         }
 
-        private static IReadOnlyDictionary<string, string> GetResourceDictionary(HttpClient client)
+        private static IReadOnlyDictionary<string, string> GetResourceDictionary(HttpClient client, string branchOrTag)
         {
-            string resourcesFileContent = client.GetStringAsync(ErrorResourcesUrl).Result;
+            var url = string.Format(ErrorResourcesUrl, branchOrTag);
+            string resourcesFileContent = client.GetStringAsync(url).Result;
             var doc = XDocument.Parse(resourcesFileContent);
             var dictionary =
                 doc.Root.Elements("data")
@@ -242,6 +242,7 @@ namespace GenerateCSharpErrors
             public string Output { get; set; }
             public bool IncludeLinks { get; set; }
             public bool CheckLinks { get; set; }
+            public string BranchOrTag { get; set; } = "main";
 
             private static readonly IImmutableSet<string> _helpOptions =
                 ImmutableHashSet.Create(
@@ -260,6 +261,11 @@ namespace GenerateCSharpErrors
                 ImmutableHashSet.Create(
                     StringComparer.OrdinalIgnoreCase,
                     "-c", "--check-links");
+
+            private static readonly IImmutableSet<string> _refOptions =
+                ImmutableHashSet.Create(
+                    StringComparer.OrdinalIgnoreCase,
+                    "-r", "--ref");
 
             public static (CommandLineOptions options, int? exitCode) Parse(string[] args)
             {
@@ -291,6 +297,15 @@ namespace GenerateCSharpErrors
                     {
                         options.CheckLinks = true;
                     }
+                    else if (_refOptions.Contains(option))
+                    {
+                        if (i + 1 >= args.Length)
+                        {
+                            ShowUsage($"Missing branch or tag name for {option} option");
+                            return (options, 1);
+                        }
+                        options.BranchOrTag = args[++i];
+                    }
                     else
                     {
                         ShowUsage($"Unknown option: {option}");
@@ -321,6 +336,7 @@ namespace GenerateCSharpErrors
                 Console.WriteLine("  -o|--output <file>     Output to the specified file (default: output to the console)");
                 Console.WriteLine("  -l|--link              Include links to documentation when they exist");
                 Console.WriteLine("  -c|--check-links       Check links to documentation and only include them if they're valid");
+                Console.WriteLine("  -r|--ref               Specifies Roslyn branch or tag to use (default: main)");
                 Console.WriteLine();
             }
         }

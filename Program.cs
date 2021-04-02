@@ -41,43 +41,41 @@ namespace GenerateCSharpErrors
 
         private static async IAsyncEnumerable<ErrorCode> GetErrorCodesAsync(CommandLineOptions options)
         {
-            using (var client = new HttpClient())
-            {
-                var enumMembers = GetErrorCodeEnumMembers(client);
-                var messages = GetResourceDictionary(client);
-                var documentedCodes = options.IncludeLinks ? GetDocumentedCodes(client) : null;
-                
-                string GetMessage(string name) => messages.TryGetValue(name, out var msg) ? msg : "";
-                async Task<string> GetDocLinkAsync(int value)
-                {
-                    if (options.IncludeLinks)
-                    {
-                        var link = documentedCodes.Contains(value)
-                            ? string.Format(DocUrlTemplate, value)
-                            : string.Format(DocUrlTemplateFallback, value);
+            using var client = new HttpClient();
+            var enumMembers = GetErrorCodeEnumMembers(client);
+            var messages = GetResourceDictionary(client);
+            var documentedCodes = options.IncludeLinks ? GetDocumentedCodes(client) : null;
 
-                        if (options.CheckLinks)
-                        {
-                            using var request = new HttpRequestMessage(HttpMethod.Head, link);
-                            using var response = await client.SendAsync(request);
-                            if (!response.IsSuccessStatusCode)
-                                link = null;
-                        }
-                        
-                        return link;
+            string GetMessage(string name) => messages.TryGetValue(name, out var msg) ? msg : "";
+            async Task<string> GetDocLinkAsync(int value)
+            {
+                if (options.IncludeLinks)
+                {
+                    var link = documentedCodes.Contains(value)
+                        ? string.Format(DocUrlTemplate, value)
+                        : string.Format(DocUrlTemplateFallback, value);
+
+                    if (options.CheckLinks)
+                    {
+                        using var request = new HttpRequestMessage(HttpMethod.Head, link);
+                        using var response = await client.SendAsync(request);
+                        if (!response.IsSuccessStatusCode)
+                            link = null;
                     }
 
-                    return null;
+                    return link;
                 }
 
-                var errorCodes = new List<ErrorCode>();
-                int count = 0;
-                foreach (var m in enumMembers)
-                {
-                    count++;
-                    Console.WriteLine($"Processing code {count}/{enumMembers.Count} ({(double)count/enumMembers.Count:P0})");
-                    yield return await ErrorCode.CreateAsync(m, GetMessage, GetDocLinkAsync);
-                }
+                return null;
+            }
+
+            var errorCodes = new List<ErrorCode>();
+            int count = 0;
+            foreach (var m in enumMembers)
+            {
+                count++;
+                Console.WriteLine($"Processing code {count}/{enumMembers.Count} ({(double)count / enumMembers.Count:P0})");
+                yield return await ErrorCode.CreateAsync(m, GetMessage, GetDocLinkAsync);
             }
         }
 
@@ -207,7 +205,7 @@ namespace GenerateCSharpErrors
                 Message = message;
                 Link = link;
             }
-            
+
             public string Name { get; }
             public int Value { get; }
             public string Code => $"CS{Value:D4}";
@@ -217,21 +215,15 @@ namespace GenerateCSharpErrors
             
             private static Severity ParseSeverity(string severity)
             {
-                switch (severity)
+                return severity switch
                 {
-                    case "HDN":
-                        return Severity.Hidden;
-                    case "INF":
-                        return Severity.Info;
-                    case "WRN":
-                        return Severity.Warning;
-                    case "ERR":
-                        return Severity.Error;
-                    case "FTL":
-                        return Severity.Fatal;
-                    default:
-                        return Severity.Unknown;
-                }
+                    "HDN" => Severity.Hidden,
+                    "INF" => Severity.Info,
+                    "WRN" => Severity.Warning,
+                    "ERR" => Severity.Error,
+                    "FTL" => Severity.Fatal,
+                    _ => Severity.Unknown,
+                };
             }
         }
 

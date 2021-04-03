@@ -17,6 +17,8 @@ jobs:
       run: dotnet run -- -l -c -r main -o CSharpErrorsAndWarnings.md
     - name: Commit changes
       run: |
+        git config user.name "Github Actions"
+        git config user.email "githubactions@thomaslevesque.net"
         git add .
         git commit -m "Regenerate list of errors and warnings" || echo "No changes to commit"
         git push

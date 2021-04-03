@@ -3,7 +3,7 @@ name: Regenerate
 on: [workflow_dispatch]
 
 jobs:
-  build:
+  regenerate:
 
     runs-on: ubuntu-latest
 
@@ -14,7 +14,7 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Regenerate list of errors and warnings
-      run: dotnet run -l -c -r main -o CSharpErrorsAndWarnings.md
+      run: dotnet run -- -l -c -r main -o CSharpErrorsAndWarnings.md
     - name: Commit changes
       run: |
         git add .

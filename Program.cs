@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis.CSharp;
@@ -25,10 +26,14 @@ namespace GenerateCSharpErrors
                 return;
             }
 
-            var errorCodes = GetErrorCodesAsync(options);
+            var errorCodes = await GetErrorCodesAsync(options);
+            if (options.CheckLinks)
+            {
+                await CheckLinksAsync(errorCodes);
+            }
 
             using var writer = GetOutputWriter(options);
-            await WriteMarkdownTableAsync(errorCodes, writer);
+            WriteMarkdownTable(errorCodes, writer);
         }
 
         const string ErrorCodesUrlFormat = "https://raw.githubusercontent.com/dotnet/roslyn/{0}/src/Compilers/CSharp/Portable/Errors/ErrorCode.cs";
@@ -37,7 +42,7 @@ namespace GenerateCSharpErrors
         const string DocUrlTemplateFallback = "https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs{0:D4}";
         const string DocTableOfContentsUrl = "https://raw.githubusercontent.com/dotnet/docs/master/docs/csharp/language-reference/compiler-messages/toc.yml";
 
-        private static async IAsyncEnumerable<ErrorCode> GetErrorCodesAsync(CommandLineOptions options)
+        private static async Task<IReadOnlyList<ErrorCode>> GetErrorCodesAsync(CommandLineOptions options)
         {
             using var client = new HttpClient();
             var enumMembers = await GetErrorCodeEnumMembersAsync(client, options.BranchOrTag);
@@ -45,21 +50,14 @@ namespace GenerateCSharpErrors
             var documentedCodes = options.IncludeLinks ? await GetDocumentedCodesAsync(client) : null;
 
             string GetMessage(string name) => messages.TryGetValue(name, out var msg) ? msg : "";
-            async Task<string> GetDocLinkAsync(int value)
+
+            string GetDocLink(int value)
             {
                 if (options.IncludeLinks)
                 {
                     var link = documentedCodes.Contains(value)
                         ? string.Format(DocUrlTemplate, value)
                         : string.Format(DocUrlTemplateFallback, value);
-
-                    if (options.CheckLinks)
-                    {
-                        using var request = new HttpRequestMessage(HttpMethod.Head, link);
-                        using var response = await client.SendAsync(request);
-                        if (!response.IsSuccessStatusCode)
-                            link = null;
-                    }
 
                     return link;
                 }
@@ -68,13 +66,46 @@ namespace GenerateCSharpErrors
             }
 
             var errorCodes = new List<ErrorCode>();
-            int count = 0;
             foreach (var m in enumMembers)
             {
-                count++;
-                Console.WriteLine($"Processing code {count}/{enumMembers.Count} ({(double)count / enumMembers.Count:P0})");
-                yield return await ErrorCode.CreateAsync(m, GetMessage, GetDocLinkAsync);
+                errorCodes.Add(ErrorCode.Create(m, GetMessage, GetDocLink));
             }
+
+            return errorCodes;
+        }
+
+        private async static Task CheckLinksAsync(IReadOnlyList<ErrorCode> errorCodes)
+        {
+            using var client = new HttpClient();
+            using var sem = new SemaphoreSlim(4);
+            var logLock = new object();
+            int done = 0;
+            var tasks = errorCodes.Select(e => Task.Run(async () =>
+            {
+                await sem.WaitAsync();
+                try
+                {
+                    await CheckLinkAsync(client, e);
+                    done++;
+                    lock (logLock)
+                        Console.Error.WriteLine($"Checked link for {e.Code} ({done}/{errorCodes.Count}, {(double)done/errorCodes.Count:P0})");
+                }
+                finally
+                {
+                    sem.Release();
+                }
+            }));
+            await Task.WhenAll(tasks);
+        }
+
+        private static async Task CheckLinkAsync(HttpClient client, ErrorCode errorCode)
+        {
+            if (string.IsNullOrEmpty(errorCode.Link))
+                return;
+            using var request = new HttpRequestMessage(HttpMethod.Head, errorCode.Link);
+            using var response = await client.SendAsync(request);
+            if (!response.IsSuccessStatusCode)
+                errorCode.Link = null;
         }
 
         private static async Task<IReadOnlyList<EnumMemberDeclarationSyntax>> GetErrorCodeEnumMembersAsync(HttpClient client, string branchOrTag)
@@ -136,7 +167,7 @@ namespace GenerateCSharpErrors
             }
         }
 
-        private static async Task WriteMarkdownTableAsync(IAsyncEnumerable<ErrorCode> errorCodes, TextWriter writer)
+        private static void WriteMarkdownTable(IEnumerable<ErrorCode> errorCodes, TextWriter writer)
         {
             writer.WriteLine("# All C# errors and warnings");
             
@@ -153,7 +184,7 @@ namespace GenerateCSharpErrors
 
             writer.WriteLine("|Code|Severity|Message|");
             writer.WriteLine("|----|--------|-------|");
-            await foreach (var e in errorCodes)
+            foreach (var e in errorCodes)
             {
                 if (e.Severity == Severity.Unknown) continue;
                 stats[e.Severity] = stats.GetValueOrDefault(e.Severity) + 1;
@@ -175,10 +206,10 @@ namespace GenerateCSharpErrors
 
         class ErrorCode
         {
-            public static async Task<ErrorCode> CreateAsync(
+            public static ErrorCode Create(
                 EnumMemberDeclarationSyntax member,
                 Func<string, string> getMessageByName,
-                Func<int, Task<string>> getLinkByValue)
+                Func<int, string> getLinkByValue)
             {
                 string name = member.Identifier.ValueText;
                 if (name == "Void" || name == "Unknown")
@@ -193,7 +224,7 @@ namespace GenerateCSharpErrors
                         value,
                         ParseSeverity(name.Substring(0, 3)),
                         getMessageByName(name),
-                        await getLinkByValue(value));
+                        getLinkByValue(value));
                 }
             }
             
@@ -211,7 +242,7 @@ namespace GenerateCSharpErrors
             public string Code => $"CS{Value:D4}";
             public Severity Severity { get; }
             public string Message { get; }
-            public string Link { get; }
+            public string Link { get; set; }
             
             private static Severity ParseSeverity(string severity)
             {

@@ -144,7 +144,7 @@ namespace GenerateCSharpErrors
             writer.WriteLine("*Parsed from the [Roslyn source code](https://github.com/dotnet/roslyn) using Roslyn.*");
             writer.WriteLine();
             
-            string Link(ErrorCode e) =>
+            static string Link(ErrorCode e) =>
                 string.IsNullOrEmpty(e.Link)
                     ? e.Code
                     : $"[{e.Code}]({e.Link})";
@@ -189,7 +189,7 @@ namespace GenerateCSharpErrors
                 {
                     int value = int.Parse(member.EqualsValue?.Value?.GetText()?.ToString() ?? "0");
                     return new ErrorCode(
-                        name.Substring(4),
+                        name[4..],
                         value,
                         ParseSeverity(name.Substring(0, 3)),
                         getMessageByName(name),

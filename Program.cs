@@ -38,26 +38,27 @@ namespace GenerateCSharpErrors
 
         const string ErrorCodesUrlFormat = "https://raw.githubusercontent.com/dotnet/roslyn/{0}/src/Compilers/CSharp/Portable/Errors/ErrorCode.cs";
         const string ErrorResourcesUrl = "https://raw.githubusercontent.com/dotnet/roslyn/{0}/src/Compilers/CSharp/Portable/CSharpResources.resx";
-        const string DocUrlTemplate = "https://docs.microsoft.com/en-us/dotnet/articles/csharp/language-reference/compiler-messages/cs{0:D4}";
+        const string DocBaseUrl = "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/";
         const string DocUrlTemplateFallback = "https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs{0:D4}";
-        const string DocTableOfContentsUrl = "https://raw.githubusercontent.com/dotnet/docs/master/docs/csharp/language-reference/compiler-messages/toc.yml";
+        const string DocTableOfContentsUrl = "https://raw.githubusercontent.com/dotnet/docs/main/docs/csharp/language-reference/compiler-messages/toc.yml";
 
         private static async Task<IReadOnlyList<ErrorCode>> GetErrorCodesAsync(CommandLineOptions options)
         {
             using var client = new HttpClient();
             var enumMembers = await GetErrorCodeEnumMembersAsync(client, options.BranchOrTag);
             var messages = await GetResourceDictionaryAsync(client, options.BranchOrTag);
-            var documentedCodes = options.IncludeLinks ? await GetDocumentedCodesAsync(client) : null;
+            var docRelativeUris = options.IncludeLinks ? await GetDocRelativeUrisAsync(client) : null;
 
             string GetMessage(string name) => messages.TryGetValue(name, out var msg) ? msg : "";
 
-            string GetDocLink(int value)
+            var docBaseUri = new Uri(DocBaseUrl);
+            Uri GetDocLink(int value)
             {
                 if (options.IncludeLinks)
                 {
-                    var link = documentedCodes.Contains(value)
-                        ? string.Format(DocUrlTemplate, value)
-                        : string.Format(DocUrlTemplateFallback, value);
+                    var link = docRelativeUris.TryGetValue(value, out var relativeUrl)
+                        ? new KnownGoodUri(docBaseUri, relativeUrl)
+                        : new Uri(string.Format(DocUrlTemplateFallback, value));
 
                     return link;
                 }
@@ -100,7 +101,7 @@ namespace GenerateCSharpErrors
 
         private static async Task CheckLinkAsync(HttpClient client, ErrorCode errorCode)
         {
-            if (string.IsNullOrEmpty(errorCode.Link))
+            if (errorCode.Link is null or KnownGoodUri)
                 return;
             using var request = new HttpRequestMessage(HttpMethod.Head, errorCode.Link);
             using var response = await client.SendAsync(request);
@@ -134,14 +135,28 @@ namespace GenerateCSharpErrors
             return dictionary;
         }
 
-        private static async Task<ISet<int>> GetDocumentedCodesAsync(HttpClient client)
+        private static async Task<IReadOnlyDictionary<int, string>> GetDocRelativeUrisAsync(HttpClient client)
         {
             string tocContent = await client.GetStringAsync(DocTableOfContentsUrl);
             var serializer = new SharpYaml.Serialization.Serializer();
-            var toc = serializer.Deserialize<TocNode[]>(tocContent);
-            var codes = toc.SelectMany(n => n.Items)
-                .Select(n => int.Parse(Path.GetFileNameWithoutExtension(n.Href)[2..]));
-            return new HashSet<int>(codes);
+            var root = serializer.Deserialize<TocRoot>(tocContent);
+            var codes = new Dictionary<int, string>();
+            foreach (var item in root.Items.SelectMany(n => n.Items ?? Array.Empty<TocNode>()))
+            {
+                int code = int.Parse(Path.GetFileNameWithoutExtension(item.Name)[2..]);
+                var href = item.Href.EndsWith(".md", StringComparison.OrdinalIgnoreCase)
+                    ? item.Href[..^3]
+                    : item.Href;
+                codes.Add(code, href);
+            }
+
+            return codes;
+        }
+
+        private class TocRoot
+        {
+            [YamlMember("items")]
+            public TocNode[] Items { get; set; }
         }
 
         private class TocNode
@@ -152,6 +167,13 @@ namespace GenerateCSharpErrors
             public string Href { get; set; }
             [YamlMember("items")]
             public TocNode[] Items { get; set; }
+        }
+
+        private class KnownGoodUri : Uri
+        {
+            public KnownGoodUri(Uri baseUri, string relativeUri) : base(baseUri, relativeUri)
+            {
+            }
         }
 
         private static TextWriter GetOutputWriter(CommandLineOptions options)
@@ -176,7 +198,7 @@ namespace GenerateCSharpErrors
             writer.WriteLine();
             
             static string Link(ErrorCode e) =>
-                string.IsNullOrEmpty(e.Link)
+                e.Link is null
                     ? e.Code
                     : $"[{e.Code}]({e.Link})";
 
@@ -209,12 +231,12 @@ namespace GenerateCSharpErrors
             public static ErrorCode Create(
                 EnumMemberDeclarationSyntax member,
                 Func<string, string> getMessageByName,
-                Func<int, string> getLinkByValue)
+                Func<int, Uri> getLinkByValue)
             {
                 string name = member.Identifier.ValueText;
                 if (name == "Void" || name == "Unknown")
                 {
-                    return new ErrorCode(name, 0, Severity.Unknown, "", "");
+                    return new ErrorCode(name, 0, Severity.Unknown, "", null);
                 }
                 else
                 {
@@ -228,7 +250,7 @@ namespace GenerateCSharpErrors
                 }
             }
             
-            private ErrorCode(string name, int value, Severity severity, string message, string link)
+            private ErrorCode(string name, int value, Severity severity, string message, Uri link)
             {
                 Name = name;
                 Value = value;
@@ -242,7 +264,7 @@ namespace GenerateCSharpErrors
             public string Code => $"CS{Value:D4}";
             public Severity Severity { get; }
             public string Message { get; }
-            public string Link { get; set; }
+            public Uri Link { get; set; }
             
             private static Severity ParseSeverity(string severity)
             {

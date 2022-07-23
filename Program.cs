@@ -138,7 +138,10 @@ namespace GenerateCSharpErrors
         private static async Task<IReadOnlyDictionary<int, string>> GetDocRelativeUrisAsync(HttpClient client)
         {
             string tocContent = await client.GetStringAsync(DocTableOfContentsUrl);
-            var serializer = new SharpYaml.Serialization.Serializer();
+            var serializer = new SharpYaml.Serialization.Serializer(new SerializerSettings
+            {
+                IgnoreUnmatchedProperties = true
+            });
             var root = serializer.Deserialize<TocRoot>(tocContent);
             var codes = new Dictionary<int, string>();
             foreach (var item in root.Items.SelectMany(n => n.Items ?? Array.Empty<TocNode>()))
@@ -192,11 +195,11 @@ namespace GenerateCSharpErrors
         private static void WriteMarkdownTable(IEnumerable<ErrorCode> errorCodes, TextWriter writer)
         {
             writer.WriteLine("# All C# errors and warnings");
-            
+
             writer.WriteLine();
             writer.WriteLine("*Parsed from the [Roslyn source code](https://github.com/dotnet/roslyn) using Roslyn.*");
             writer.WriteLine();
-            
+
             static string Link(ErrorCode e) =>
                 e.Link is null
                     ? e.Code
@@ -249,7 +252,7 @@ namespace GenerateCSharpErrors
                         getLinkByValue(value));
                 }
             }
-            
+
             private ErrorCode(string name, int value, Severity severity, string message, Uri link)
             {
                 Name = name;
@@ -265,7 +268,7 @@ namespace GenerateCSharpErrors
             public Severity Severity { get; }
             public string Message { get; }
             public Uri Link { get; set; }
-            
+
             private static Severity ParseSeverity(string severity)
             {
                 return severity switch
@@ -365,7 +368,7 @@ namespace GenerateCSharpErrors
                         return (options, 1);
                     }
                 }
-                
+
                 return (options, null);
             }
 

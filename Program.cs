@@ -56,7 +56,7 @@ namespace GenerateCSharpErrors
             {
                 if (options.IncludeLinks)
                 {
-                    var link = docRelativeUris.TryGetValue(value, out var relativeUrl)
+                    var link = docRelativeUris!.TryGetValue(value, out var relativeUrl)
                         ? new KnownGoodUri(docBaseUri, relativeUrl)
                         : new Uri(string.Format(DocUrlTemplateFallback, value));
 
@@ -128,25 +128,25 @@ namespace GenerateCSharpErrors
             string resourcesFileContent = await client.GetStringAsync(url);
             var doc = XDocument.Parse(resourcesFileContent);
             var dictionary =
-                doc.Root.Elements("data")
+                doc.Root!.Elements("data")
                     .ToDictionary(
-                        e => e.Attribute("name").Value,
-                        e => e.Element("value").Value);
+                        e => e.Attribute("name")!.Value,
+                        e => e.Element("value")!.Value);
             return dictionary;
         }
 
         private static async Task<IReadOnlyDictionary<int, string>> GetDocRelativeUrisAsync(HttpClient client)
         {
             string tocContent = await client.GetStringAsync(DocTableOfContentsUrl);
-            var serializer = new SharpYaml.Serialization.Serializer(new SerializerSettings
+            var serializer = new Serializer(new SerializerSettings
             {
                 IgnoreUnmatchedProperties = true
             });
             var root = serializer.Deserialize<TocRoot>(tocContent);
             var codes = new Dictionary<int, string>();
-            foreach (var item in root.Items.SelectMany(n => n.Items ?? Array.Empty<TocNode>()))
+            foreach (var item in root!.Items.SelectMany(n => n.Items ?? Array.Empty<TocNode>()))
             {
-                int code = int.Parse(Path.GetFileNameWithoutExtension(item.Name)[2..]);
+                int code = int.Parse(Path.GetFileNameWithoutExtension(item.Name)![2..]);
                 var href = item.Href.EndsWith(".md", StringComparison.OrdinalIgnoreCase)
                     ? item.Href[..^3]
                     : item.Href;
@@ -243,7 +243,7 @@ namespace GenerateCSharpErrors
                 }
                 else
                 {
-                    int value = int.Parse(member.EqualsValue?.Value?.GetText()?.ToString() ?? "0");
+                    int value = int.Parse(member.EqualsValue?.Value.GetText().ToString() ?? "0");
                     return new ErrorCode(
                         name[4..],
                         value,
@@ -300,25 +300,25 @@ namespace GenerateCSharpErrors
             public bool CheckLinks { get; set; }
             public string BranchOrTag { get; set; } = "main";
 
-            private static readonly IImmutableSet<string> _helpOptions =
+            private static readonly IImmutableSet<string> HelpOptions =
                 ImmutableHashSet.Create(
                     StringComparer.OrdinalIgnoreCase,
                     "-h", "-?", "--help");
-            private static readonly IImmutableSet<string> _outputOptions =
+            private static readonly IImmutableSet<string> OutputOptions =
                 ImmutableHashSet.Create(
                     StringComparer.OrdinalIgnoreCase,
                     "-o", "--output");
-            private static readonly IImmutableSet<string> _linksOptions =
+            private static readonly IImmutableSet<string> LinksOptions =
                 ImmutableHashSet.Create(
                     StringComparer.OrdinalIgnoreCase,
                     "-l", "--link");
 
-            private static readonly IImmutableSet<string> _checkLinksOptions =
+            private static readonly IImmutableSet<string> CheckLinksOptions =
                 ImmutableHashSet.Create(
                     StringComparer.OrdinalIgnoreCase,
                     "-c", "--check-links");
 
-            private static readonly IImmutableSet<string> _refOptions =
+            private static readonly IImmutableSet<string> RefOptions =
                 ImmutableHashSet.Create(
                     StringComparer.OrdinalIgnoreCase,
                     "-r", "--ref");
@@ -331,12 +331,12 @@ namespace GenerateCSharpErrors
                 {
                     var option = args[i];
 
-                    if (_helpOptions.Contains(option))
+                    if (HelpOptions.Contains(option))
                     {
                         ShowUsage();
                         return (options, 0);
                     }
-                    else if (_outputOptions.Contains(option))
+                    else if (OutputOptions.Contains(option))
                     {
                         if (i + 1 >= args.Length)
                         {
@@ -345,15 +345,15 @@ namespace GenerateCSharpErrors
                         }
                         options.Output = args[++i];
                     }
-                    else if (_linksOptions.Contains(option))
+                    else if (LinksOptions.Contains(option))
                     {
                         options.IncludeLinks = true;
                     }
-                    else if (_checkLinksOptions.Contains(option))
+                    else if (CheckLinksOptions.Contains(option))
                     {
                         options.CheckLinks = true;
                     }
-                    else if (_refOptions.Contains(option))
+                    else if (RefOptions.Contains(option))
                     {
                         if (i + 1 >= args.Length)
                         {

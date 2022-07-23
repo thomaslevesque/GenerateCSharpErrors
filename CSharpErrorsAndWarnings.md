@@ -67,11 +67,11 @@
 |[CS0109](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0109)|Warning|The member '{0}' does not hide an accessible member. The new keyword is not required.|
 |[CS0110](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0110)|Error|The evaluation of the constant value for '{0}' involves a circular definition|
 |[CS0111](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0111)|Error|Type '{1}' already defines a member called '{0}' with the same parameter types|
-|[CS0112](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0112)|Error|A static member '{0}' cannot be marked as override, virtual, or abstract|
+|[CS0112](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0112)|Error|A static member cannot be marked as '{0}'|
 |[CS0113](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0113)|Error|A member '{0}' marked as override cannot be marked as new or virtual|
 |[CS0114](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0114)|Warning|'{0}' hides inherited member '{1}'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.|
 |[CS0115](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0115)|Error|'{0}': no suitable method found to override|
-|[CS0116](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0116)|Error|A namespace cannot directly contain members such as fields or methods|
+|[CS0116](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0116)|Error|A namespace cannot directly contain members such as fields, methods or statements|
 |[CS0117](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0117)|Error|'{0}' does not contain a definition for '{1}'|
 |[CS0118](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0118)|Error|'{0}' is a {1} but is used like a {2}|
 |[CS0119](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0119)|Error|'{0}' is a {1}, which is not valid in the given context|
@@ -115,7 +115,7 @@
 |[CS0168](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0168)|Warning|The variable '{0}' is declared but never used|
 |[CS0169](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0169)|Warning|The field '{0}' is never used|
 |[CS0170](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0170)|Error|Use of possibly unassigned field '{0}'|
-|[CS0171](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0171)|Error|Field '{0}' must be fully assigned before control is returned to the caller|
+|[CS0171](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0171)|Error|Field '{0}' must be fully assigned before control is returned to the caller. Consider updating to language version '{1}' to auto-default the field.|
 |[CS0172](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0172)|Error|Type of conditional expression cannot be determined because '{0}' and '{1}' implicitly convert to one another|
 |[CS0173](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0173)|Error|Type of conditional expression cannot be determined because there is no implicit conversion between '{0}' and '{1}'|
 |[CS0174](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0174)|Error|A base class is required for a 'base' reference|
@@ -131,7 +131,7 @@
 |[CS0184](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0184)|Warning|The given expression is never of the provided ('{0}') type|
 |[CS0185](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0185)|Error|'{0}' is not a reference type as required by the lock statement|
 |[CS0186](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0186)|Error|Use of null is not valid in this context|
-|[CS0188](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0188)|Error|The 'this' object cannot be used before all of its fields have been assigned|
+|[CS0188](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0188)|Error|The 'this' object cannot be used before all of its fields have been assigned. Consider updating to language version '{0}' to auto-default the unassigned fields.|
 |CS0190|Error|The __arglist construct is valid only within a variable argument method|
 |[CS0191](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0191)|Error|A readonly field cannot be assigned to (except in a constructor or init-only setter of the type in which the field is defined or a variable initializer)|
 |[CS0192](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0192)|Error|A readonly field cannot be used as a ref or out value (except in a constructor)|
@@ -226,7 +226,6 @@
 |[CS0401](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0401)|Error|The new() constraint must be the last constraint specified|
 |[CS0402](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0402)|Warning|'{0}': an entry point cannot be generic or in a generic type|
 |[CS0403](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0403)|Error|Cannot convert null to type parameter '{0}' because it could be a non-nullable value type. Consider using 'default({0})' instead.|
-|[CS0404](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0404)|Error|Cannot apply attribute class '{0}' because it is generic|
 |[CS0405](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0405)|Error|Duplicate constraint '{0}' for type parameter '{1}'|
 |[CS0406](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0406)|Error|The class type constraint '{0}' must come before any other constraints|
 |[CS0407](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0407)|Error|'{1} {0}' has the wrong return type|
@@ -327,21 +326,19 @@
 |[CS0552](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0552)|Error|'{0}': user-defined conversions to or from an interface are not allowed|
 |[CS0553](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0553)|Error|'{0}': user-defined conversions to or from a base type are not allowed|
 |[CS0554](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0554)|Error|'{0}': user-defined conversions to or from a derived type are not allowed|
-|[CS0555](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0555)|Error|User-defined operator cannot take an object of the enclosing type and convert to an object of the enclosing type|
+|[CS0555](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0555)|Error|User-defined operator cannot convert a type to itself|
 |[CS0556](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0556)|Error|User-defined conversion must convert to or from the enclosing type|
 |[CS0557](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0557)|Error|Duplicate user-defined conversion in type '{0}'|
 |[CS0558](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0558)|Error|User-defined operator '{0}' must be declared static and public|
 |[CS0559](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0559)|Error|The parameter type for ++ or -- operator must be the containing type|
 |[CS0562](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0562)|Error|The parameter of a unary operator must be the containing type|
 |[CS0563](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0563)|Error|One of the parameters of a binary operator must be the containing type|
-|[CS0564](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0564)|Error|The first operand of an overloaded shift operator must have the same type as the containing type, and the type of the second operand must be int|
-|[CS0567](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0567)|Error|Interfaces cannot contain conversion, equality, or inequality operators|
-|[CS0568](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0568)|Error|Structs cannot contain explicit parameterless constructors|
+|[CS0564](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0564)|Error|The first operand of an overloaded shift operator must have the same type as the containing type|
+|[CS0567](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0567)|Error|Conversion, equality, or inequality operators declared in interfaces must be abstract or virtual|
 |[CS0569](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0569)|Error|'{0}': cannot override '{1}' because it is not supported by the language|
 |[CS0570](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0570)|Error|'{0}' is not supported by the language|
 |[CS0571](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0571)|Error|'{0}': cannot explicitly call operator or accessor|
 |[CS0572](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0572)|Error|'{0}': cannot reference a type through an expression; try '{1}' instead|
-|[CS0573](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0573)|Error|'{0}': cannot have instance property or field initializers in structs|
 |[CS0574](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0574)|Error|Name of destructor must match name of type|
 |[CS0575](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0575)|Error|Only class types can contain destructors|
 |[CS0576](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0576)|Error|Namespace '{1}' contains a definition conflicting with alias '{0}'|
@@ -420,12 +417,11 @@
 |[CS0693](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0693)|Warning|Type parameter '{0}' has the same name as the type parameter from outer type '{1}'|
 |[CS0694](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0694)|Error|Type parameter '{0}' has the same name as the containing type, or method|
 |[CS0695](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0695)|Error|'{0}' cannot implement both '{1}' and '{2}' because they may unify for some type parameter substitutions|
-|[CS0698](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0698)|Error|A generic type cannot derive from '{0}' because it is an attribute class|
 |[CS0699](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0699)|Error|'{1}' does not define type parameter '{0}'|
 |[CS0701](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0701)|Error|'{0}' is not a valid constraint. A type used as a constraint must be an interface, a non-sealed class or a type parameter.|
 |[CS0702](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0702)|Error|Constraint cannot be special class '{0}'|
 |[CS0703](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0703)|Error|Inconsistent accessibility: constraint type '{1}' is less accessible than '{0}'|
-|[CS0704](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0704)|Error|Cannot do member lookup in '{0}' because it is a type parameter|
+|[CS0704](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0704)|Error|Cannot do non-virtual member lookup in '{0}' because it is a type parameter|
 |[CS0706](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0706)|Error|Invalid constraint type. A type used as a constraint must be an interface, a non-sealed class or a type parameter.|
 |[CS0708](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0708)|Error|'{0}': cannot declare instance members in a static class|
 |[CS0709](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0709)|Error|'{1}': cannot derive from static class '{0}'|
@@ -451,7 +447,7 @@
 |[CS0731](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0731)|Error|The type forwarder for type '{0}' in assembly '{1}' causes a cycle|
 |[CS0734](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0734)|Error|The /moduleassemblyname option may only be specified when building a target type of 'module'|
 |[CS0735](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0735)|Error|Invalid type specified as an argument for TypeForwardedTo attribute|
-|[CS0736](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0736)|Error|'{0}' does not implement interface member '{1}'. '{2}' cannot implement an interface member because it is static.|
+|[CS0736](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0736)|Error|'{0}' does not implement instance interface member '{1}'. '{2}' cannot implement the interface member because it is static.|
 |[CS0737](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0737)|Error|'{0}' does not implement interface member '{1}'. '{2}' cannot implement an interface member because it is not public.|
 |[CS0738](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0738)|Error|'{0}' does not implement interface member '{1}'. '{2}' cannot implement '{1}' because it does not have the matching return type of '{3}'.|
 |[CS0739](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0739)|Error|'{0}' duplicate TypeForwardedToAttribute|
@@ -499,7 +495,7 @@
 |[CS0838](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0838)|Error|An expression tree may not contain a multidimensional array initializer|
 |[CS0839](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0839)|Error|Argument missing|
 |[CS0841](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0841)|Error|Cannot use local variable '{0}' before it is declared|
-|[CS0843](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0843)|Error|Auto-implemented property '{0}' must be fully assigned before control is returned to the caller.|
+|[CS0843](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0843)|Error|Auto-implemented property '{0}' must be fully assigned before control is returned to the caller. Consider updating to language version '{1}' to auto-default the property.|
 |[CS0844](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0844)|Error|Cannot use local variable '{0}' before it is declared. The declaration of the local variable hides the field '{1}'.|
 |[CS0845](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0845)|Error|An expression tree lambda may not contain a coalescing operator with a null or default literal left-hand side|
 |CS0846|Error|A nested array initializer is expected|
@@ -650,7 +646,7 @@
 |[CS1611](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1611)|Error|The params parameter cannot be declared as {0}|
 |[CS1612](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1612)|Error|Cannot modify the return value of '{0}' because it is not a variable|
 |[CS1613](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1613)|Error|The managed coclass wrapper class '{0}' for interface '{1}' cannot be found (are you missing an assembly reference?)|
-|[CS1614](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1614)|Error|'{0}' is ambiguous between '{1}' and '{2}'; use either '@{0}' or '{0}Attribute'|
+|[CS1614](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1614)|Error|'{0}' is ambiguous between '{1}' and '{2}'. Either use '@{0}' or explicitly include the 'Attribute' suffix.|
 |[CS1615](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1615)|Error|Argument {0} may not be passed with the '{1}' keyword|
 |[CS1616](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1616)|Warning|Option '{0}' overrides attribute '{1}' given in a source file or added module|
 |[CS1617](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1617)|Error|Invalid option '{0}' for /langversion. Use '/langversion:?' to list supported values.|
@@ -1007,7 +1003,6 @@
 |CS7061|Error|Duplicate '{0}' attribute in '{1}'|
 |CS7064|Error|Error opening icon file {0} -- {1}|
 |CS7065|Error|Error building Win32 resources -- {0}|
-|CS7066|Error|Yield statements may not appear at the top level in interactive code.|
 |CS7067|Error|Attribute constructor parameter '{0}' is optional, but no default parameter value was specified.|
 |CS7068|Error|Reference to type '{0}' claims it is defined in this assembly, but it is not defined in source or any added modules|
 |CS7069|Error|Reference to type '{0}' claims it is defined in '{1}', but it could not be found|
@@ -1087,7 +1082,6 @@
 |CS8074|Error|An expression tree lambda may not contain a dictionary initializer.|
 |CS8075|Error|An extension Add method is not supported for a collection initializer in an expression lambda.|
 |CS8076|Error|Missing close delimiter '}' for interpolated expression started with '{'.|
-|CS8077|Error|A single-line comment may not be used in an interpolated string.|
 |CS8078|Error|An expression is too long or complex to compile|
 |CS8079|Error|Use of possibly unassigned auto-implemented property '{0}'|
 |CS8080|Error|Auto-implemented properties must override all accessors of the overridden property.|
@@ -1171,7 +1165,7 @@
 |CS8161|Error|A static readonly field cannot be returned by writable reference|
 |CS8162|Error|Members of readonly field '{0}' cannot be returned by writable reference|
 |CS8163|Error|Fields of static readonly field '{0}' cannot be returned by writable reference|
-|CS8166|Error|Cannot return a parameter by reference '{0}' because it is not a ref or out parameter|
+|CS8166|Error|Cannot return a parameter by reference '{0}' because it is not a ref parameter|
 |CS8167|Error|Cannot return by reference a member of parameter '{0}' because it is not a ref or out parameter|
 |CS8168|Error|Cannot return local '{0}' by reference because it is not a ref local|
 |CS8169|Error|Cannot return a member of local '{0}' by reference because it is not a ref local|
@@ -1204,7 +1198,6 @@
 |CS8202|Error|Public signing is not supported for netmodules.|
 |CS8203|Error|Invalid assembly name: {0}|
 |CS8204|Error|For type '{0}' to be used as an AsyncMethodBuilder for type '{1}', its Task property should return type '{1}' instead of type '{2}'.|
-|CS8205|Error|Attributes are not allowed on local function parameters or type parameters|
 |CS8206|Error|Module '{0}' in assembly '{1}' is forwarding the type '{2}' to multiple assemblies: '{3}' and '{4}'.|
 |CS8207|Error|An expression tree may not contain a discard.|
 |CS8208|Error|It is not legal to use the type 'dynamic' in a pattern.|
@@ -1255,7 +1248,7 @@
 |CS8349|Error|Expression cannot be used in this context because it may indirectly expose variables outside of their declaration scope|
 |CS8350|Error|This combination of arguments to '{0}' is disallowed because it may expose variables referenced by parameter '{1}' outside of their declaration scope|
 |CS8351|Error|Branches of a ref conditional operator cannot refer to variables with incompatible declaration scopes|
-|CS8352|Error|Cannot use local '{0}' in this context because it may expose referenced variables outside of their declaration scope|
+|CS8352|Error|Cannot use variable '{0}' in this context because it may expose referenced variables outside of their declaration scope|
 |CS8353|Error|A result of a stackalloc expression of type '{0}' cannot be used in this context because it may be exposed outside of the containing method|
 |CS8354|Error|Cannot return 'this' by reference.|
 |CS8355|Error|An in parameter cannot have the Out attribute.|
@@ -1270,7 +1263,7 @@
 |CS8370|Error|Feature '{0}' is not available in C# 7.3. Please use language version {1} or greater.|
 |CS8371|Warning|Field-targeted attributes on auto-properties are not supported in language version {0}. Please use language version {1} or greater.|
 |CS8372|Error|Do not use 'System.Runtime.CompilerServices.FixedBuffer' attribute on a property|
-|CS8373|Error|The left-hand side of a ref assignment must be a ref local or parameter.|
+|CS8373|Error|The left-hand side of a ref assignment must be a ref variable.|
 |CS8374|Error|Cannot ref-assign '{1}' to '{0}' because '{1}' has a narrower escape scope than '{0}'.|
 |CS8375|Error|The 'new()' constraint cannot be used with the 'unmanaged' constraint|
 |CS8377|Error|The type '{2}' must be a non-nullable value type, along with all fields at any level of nesting, in order to use it as parameter '{1}' in the generic type or method '{0}'|
@@ -1403,7 +1396,7 @@
 |CS8701|Error|Target runtime doesn't support default interface implementation.|
 |CS8702|Error|'{0}' cannot implement interface member '{1}' in type '{2}' because the target runtime doesn't support default interface implementation.|
 |CS8703|Error|The modifier '{0}' is not valid for this item in C# {1}. Please use language version '{2}' or greater.|
-|CS8704|Error|'{0}' does not implement interface member '{1}'. '{2}' cannot implicitly implement a non-public member.|
+|CS8704|Error|'{0}' does not implement interface member '{1}'. '{2}' cannot implicitly implement a non-public member in C# {3}. Please use language version '{4}' or greater.|
 |CS8705|Error|Interface member '{0}' does not have a most specific implementation. Neither '{1}', nor '{2}' are most specific.|
 |CS8706|Error|'{0}' cannot implement interface member '{1}' in type '{2}' because feature '{3}' is not available in C# {4}. Please use language version '{5}' or greater.|
 |CS8707|Error|Target runtime doesn't support 'protected', 'protected internal', or 'private protected' accessibility for a member of an interface.|
@@ -1473,7 +1466,7 @@
 |CS8808|Error|'{0}' is not a valid function pointer return type modifier. Valid modifiers are 'ref' and 'ref readonly'.|
 |CS8809|Error|A return type can only have one '{0}' modifier.|
 |CS8810|Error|'&' on method groups cannot be used in expression trees|
-|CS8811|Error|Cannot convert &method group '{0}' to delegate type '{0}'.|
+|CS8811|Error|Cannot convert &method group '{0}' to delegate type '{1}'.|
 |CS8812|Error|Cannot convert &method group '{0}' to non-function pointer type '{1}'.|
 |CS8813|Error|A module initializer must be an ordinary member method|
 |CS8814|Error|Module initializer method '{0}' must be accessible at the module level|
@@ -1525,23 +1518,23 @@
 |CS8877|Error|Record member '{0}' may not be static.|
 |CS8878|Error|A copy constructor '{0}' must be public or protected because the record is not sealed.|
 |CS8879|Error|Record member '{0}' must be private.|
-|CS8880|Warning|Auto-implemented property '{0}' must be fully assigned before control is returned to the caller.|
-|CS8881|Warning|Field '{0}' must be fully assigned before control is returned to the caller|
+|CS8880|Warning|Auto-implemented property '{0}' must be fully assigned before control is returned to the caller. Consider updating to language version '{1}' to auto-default the property.|
+|CS8881|Warning|Field '{0}' must be fully assigned before control is returned to the caller. Consider updating to language version '{1}' to auto-default the field.|
 |CS8882|Warning|The out parameter '{0}' must be assigned to before control leaves the current method|
 |CS8883|Warning|Use of possibly unassigned auto-implemented property '{0}'|
 |CS8884|Warning|Use of possibly unassigned field '{0}'|
-|CS8885|Warning|The 'this' object cannot be used before all of its fields have been assigned|
+|CS8885|Warning|The 'this' object cannot be used before all of its fields have been assigned. Consider updating to language version '{0}' to auto-default the unassigned fields.|
 |CS8886|Warning|Use of unassigned out parameter '{0}'|
 |CS8887|Warning|Use of unassigned local variable '{0}'|
 |CS8888|Error|'managed' calling convention cannot be combined with unmanaged calling convention specifiers.|
 |CS8889|Error|The target runtime doesn't support extensible or runtime-environment default calling conventions.|
 |CS8890|Error|Type '{0}' is not defined.|
 |CS8891|Error|Type '{0}' must be public to be used as a calling convention.|
-|[CS8892](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs8892)|Warning|Method '{0}' will not be used as an entry point because a synchronous entry point '{1}' was found.|
+|CS8892|Warning|Method '{0}' will not be used as an entry point because a synchronous entry point '{1}' was found.|
 |CS8893|Error|'{0}' is not a valid calling convention type for 'UnmanagedCallersOnly'.|
 |CS8894|Error|Cannot use '{0}' as a {1} type on a method attributed with 'UnmanagedCallersOnly'.|
 |CS8895|Error|Methods attributed with 'UnmanagedCallersOnly' cannot have generic type parameters and cannot be declared in a generic type.|
-|CS8896|Error|'UnmanagedCallersOnly' can only be applied to ordinary static methods or static local functions.|
+|CS8896|Error|'UnmanagedCallersOnly' can only be applied to ordinary static non-abstract, non-virtual methods or static local functions.|
 |CS8897|Warning|'{0}': static types cannot be used as parameters|
 |CS8898|Warning|'{0}': static types cannot be used as return types|
 |CS8899|Error|Application entry points cannot be attributed with 'UnmanagedCallersOnly'.|
@@ -1564,14 +1557,148 @@
 |CS8916|Error|Attributes on lambda expressions require a parenthesized parameter list.|
 |CS8917|Error|The delegate type could not be inferred.|
 |CS8918|Error|Identifier or a simple member access expected.|
+|CS8919|Error|Target runtime doesn't support static abstract members in interfaces.|
+|CS8920|Error|The interface '{0}' cannot be used as type argument. Static member '{1}' does not have a most specific implementation in the interface.|
+|CS8921|Error|The parameter of a unary operator must be the containing type, or its type parameter constrained to it.|
+|CS8922|Error|The parameter type for ++ or -- operator must be the containing type, or its type parameter constrained to it.|
+|CS8923|Error|The return type for ++ or -- operator must either match the parameter type, or be derived from the parameter type, or be the containing type's type parameter constrained to it unless the parameter type is a different type parameter.|
+|CS8924|Error|One of the parameters of a binary operator must be the containing type, or its type parameter constrained to it.|
+|CS8925|Error|The first operand of an overloaded shift operator must have the same type as the containing type or its type parameter constrained to it|
+|CS8926|Error|A static virtual or abstract interface member can be accessed only on a type parameter.|
+|CS8927|Error|An expression tree may not contain an access of static virtual or abstract interface member|
+|CS8928|Error|'{0}' does not implement static interface member '{1}'. '{2}' cannot implement the interface member because it is not static.|
+|CS8929|Error|'{0}' cannot implement interface member '{1}' in type '{2}' because the target runtime doesn't support static abstract members in interfaces.|
+|CS8930|Error|Explicit implementation of a user-defined operator '{0}' must be declared static|
+|CS8931|Error|User-defined conversion in an interface must convert to or from a type parameter on the enclosing type constrained to the enclosing type|
+|CS8932|Error|'UnmanagedCallersOnly' method '{0}' cannot implement interface member '{1}' in type '{2}'|
+|CS8933|Hidden|The using directive for '{0}' appeared previously as global using|
+|CS8934|Error|Cannot convert {0} to type '{1}' because the return type does not match the delegate return type|
+|CS8935|Error|The AsyncMethodBuilder attribute is disallowed on anonymous methods without an explicit return type.|
+|CS8936|Error|Feature '{0}' is not available in C# 10.0. Please use language version {1} or greater.|
+|CS8937|Error|At least one top-level statement must be non-empty.|
+|CS8938|Error|The #line directive value is missing or out of range|
+|CS8939|Error|The #line directive end position must be greater than or equal to the start position|
+|CS8940|Error|A generic task-like return type was expected, but the type '{0}' found in 'AsyncMethodBuilder' attribute was not suitable. It must be an unbound generic type of arity one, and its containing type (if any) must be non-generic.|
+|CS8941|Error|Interpolated string handler method '{0}' is malformed. It does not return 'void' or 'bool'.|
+|CS8942|Error|Interpolated string handler method '{0}' has inconsistent return type. Expected to return '{1}'.|
+|CS8943|Error|null is not a valid parameter name. To get access to the receiver of an instance method, use the empty string as the parameter name.|
+|CS8944|Error|'{0}' is not an instance method, the receiver cannot be an interpolated string handler argument.|
+|CS8945|Error|'{0}' is not a valid parameter name from '{1}'.|
+|CS8946|Error|'{0}' is not an interpolated string handler type.|
+|CS8947|Warning|Parameter '{0}' occurs after '{1}' in the parameter list, but is used as an argument for interpolated string handler conversions. This will require the caller to reorder parameters with named arguments at the call site. Consider putting the interpolated string handler parameter after all arguments involved.|
+|CS8948|Error|InterpolatedStringHandlerArgumentAttribute arguments cannot refer to the parameter the attribute is used on.|
+|CS8949|Error|The InterpolatedStringHandlerArgumentAttribute applied to parameter '{0}' is malformed and cannot be interpreted. Construct an instance of '{1}' manually.|
+|CS8950|Error|Parameter '{0}' is an argument to the interpolated string handler conversion on parameter '{1}', but the corresponding argument is specified after the interpolated string expression. Reorder the arguments to move '{0}' before '{1}'.|
+|CS8951|Error|Parameter '{0}' is not explicitly provided, but is used as an argument to the interpolated string handler conversion on parameter '{1}'. Specify the value of '{0}' before '{1}'.|
+|CS8952|Error|An expression tree may not contain an interpolated string handler conversion.|
+|CS8953|Error|An interpolated string handler construction cannot use dynamic. Manually construct an instance of '{0}'.|
+|CS8954|Error|Source file can only contain one file-scoped namespace declaration.|
+|CS8955|Error|Source file can not contain both file-scoped and normal namespace declarations.|
+|CS8956|Error|File-scoped namespace must precede all other members in a file.|
+|CS8957|Error|Conditional expression is not valid in language version {0} because a common type was not found between '{1}' and '{2}'. To use a target-typed conversion, upgrade to language version {3} or greater.|
+|CS8958|Error|The parameterless struct constructor must be 'public'.|
+|CS8959|Error|CallerArgumentExpressionAttribute cannot be applied because there are no standard conversions from type '{0}' to type '{1}'|
+|CS8960|Warning|The CallerArgumentExpressionAttribute applied to parameter '{0}' will have no effect. It is overridden by the CallerLineNumberAttribute.|
+|CS8961|Warning|The CallerArgumentExpressionAttribute applied to parameter '{0}' will have no effect. It is overridden by the CallerFilePathAttribute.|
+|CS8962|Warning|The CallerArgumentExpressionAttribute applied to parameter '{0}' will have no effect. It is overridden by the CallerMemberNameAttribute.|
+|CS8963|Warning|The CallerArgumentExpressionAttribute applied to parameter '{0}' will have no effect. It is applied with an invalid parameter name.|
+|CS8964|Error|The CallerArgumentExpressionAttribute may only be applied to parameters with default values|
+|CS8965|Warning|The CallerArgumentExpressionAttribute applied to parameter '{0}' will have no effect because it's self-referential.|
+|CS8966|Warning|The CallerArgumentExpressionAttribute applied to parameter '{0}' will have no effect because it applies to a member that is used in contexts that do not allow optional arguments|
+|CS8967|Error|Newlines inside a non-verbatim interpolated string are not supported in C# {0}. Please use language version {1} or greater.|
+|CS8968|Error|'{0}': an attribute type argument cannot use type parameters|
+|CS8970|Error|Type '{0}' cannot be used in this context because it cannot be represented in metadata.|
+|CS8971|Warning|InterpolatedStringHandlerArgument has no effect when applied to lambda parameters and will be ignored at the call site.|
+|CS8972|Error|A lambda expression with attributes cannot be converted to an expression tree|
+|CS8973|Warning|The operation may overflow '{0}' at runtime (use 'unchecked' syntax to override)|
+|CS8974|Warning|Converting method group '{0}' to non-delegate type '{1}'. Did you intend to invoke the method?|
+|CS8975|Error|The contextual keyword 'var' cannot be used as an explicit lambda return type|
+|CS8976|Error|Interpolated string handler conversions that reference the instance being indexed cannot be used in indexer member initializers.|
+|CS8977|Error|Cannot use 'ref', 'in', or 'out' in the signature of a method attributed with 'UnmanagedCallersOnly'.|
+|CS8978|Error|'{0}' cannot be made nullable.|
+|CS8979|Error|List patterns may not be used for a value of type '{0}'.|
+|CS8980|Error|Slice patterns may only be used once and directly inside a list pattern.|
+|CS8981|Warning|The type name '{0}' only contains lower-cased ascii characters. Such names may become reserved for the language.|
+|CS8982|Error|A constructor declared in a 'record struct' with parameter list must have a 'this' initializer that calls the primary constructor or an explicitly declared constructor.|
+|CS8983|Error|A 'struct' with field initializers must include an explicitly declared constructor.|
+|CS8984|Error|Cannot update because an inferred delegate type has changed.|
+|CS8985|Error|List patterns may not be used for a value of type '{0}'. No suitable 'Length' or 'Count' property was found.|
+|CS8986|Error|The 'scoped' modifier of parameter '{0}' doesn't match target '{1}'.|
+|CS8987|Error|The 'scoped' modifier of parameter '{0}' doesn't match overridden or implemented member.|
+|CS8988|Error|The 'scoped' modifier of parameter '{0}' doesn't match partial method declaration.|
+|CS8989|Error|The 'parameter null-checking' feature is not supported.|
+|CS8996|Error|Raw string literals are not allowed in preprocessor directives.|
+|CS8997|Error|Unterminated raw string literal.|
+|CS8998|Error|The raw string literal does not start with enough quote characters to allow this many consecutive quote characters as content.|
+|CS8999|Error|Line does not start with the same whitespace as the closing line of the raw string literal.|
+|CS9000|Error|Raw string literal delimiter must be on its own line.|
+|CS9001|Error|Multi-line raw string literals are only allowed in verbatim interpolated strings.|
+|CS9002|Error|Multi-line raw string literals must contain at least one line of content.|
+|CS9003|Error|Line contains different whitespace than the closing line of the raw string literal: '{0}' versus '{1}'|
+|CS9004|Error|Not enough quotes for raw string literal.|
+|CS9005|Error|The interpolation must end with the same number of closing braces as the number of '$' characters that the raw string literal started with.|
+|CS9006|Error|The interpolated raw string literal does not start with enough '$' characters to allow this many consecutive opening braces as content.|
+|CS9007|Error|The interpolated raw string literal does not start with enough '$' characters to allow this many consecutive closing braces as content.|
+|CS9008|Error|Sequence of '@' characters is not allowed. A verbatim string or identifier can only have one '@' character and a raw string cannot have any.|
+|CS9009|Error|String must start with quote character: "|
+|CS9010|Error|Keyword 'enum' cannot be used as a constraint. Did you mean 'struct, System.Enum'?|
+|CS9011|Error|Keyword 'delegate' cannot be used as a constraint. Did you mean 'System.Delegate'?|
+|CS9012|Error|Unexpected keyword 'record'. Did you mean 'record struct' or 'record class'?|
+|CS9013|Error|A string 'null' constant is not supported as a pattern for '{0}'. Use an empty string instead.|
+|CS9014|Error|Use of possibly unassigned auto-implemented property '{0}'. Consider updating to language version '{1}' to auto-default the property.|
+|CS9015|Error|Use of possibly unassigned field '{0}'. Consider updating to language version '{1}' to auto-default the field.|
+|CS9016|Warning|Use of possibly unassigned auto-implemented property '{0}'. Consider updating to language version '{1}' to auto-default the property.|
+|CS9017|Warning|Use of possibly unassigned field '{0}'. Consider updating to language version '{1}' to auto-default the field.|
+|CS9018|Warning|Auto-implemented property '{0}' is read before being explicitly assigned, causing a preceding implicit assignment of 'default'.|
+|CS9019|Warning|Field '{0}' is read before being explicitly assigned, causing a preceding implicit assignment of 'default'.|
+|CS9020|Warning|The 'this' object is read before all of its fields have been assigned, causing preceding implicit assignments of 'default' to non-explicitly assigned fields.|
+|CS9021|Warning|Control is returned to caller before auto-implemented property '{0}' is explicitly assigned, causing a preceding implicit assignment of 'default'.|
+|CS9022|Warning|Control is returned to caller before field '{0}' is explicitly assigned, causing a preceding implicit assignment of 'default'.|
+|CS9023|Error|User-defined operator '{0}' cannot be declared checked|
+|CS9024|Error|An 'implicit' user-defined conversion operator cannot be declared checked|
+|CS9025|Error|The operator '{0}' requires a matching non-checked version of the operator to also be defined|
+|CS9026|Error|The input string cannot be converted into the equivalent UTF-8 byte representation. {0}|
+|CS9027|Error|Unexpected keyword 'unchecked'|
+|CS9028|Error|The #line span directive requires space before the first parenthesis, before the character offset, and before the file name|
+|CS9029|Error|Types and aliases cannot be named 'required'.|
+|CS9030|Error|'{0}' must be required because it overrides required member '{1}'|
+|CS9031|Error|Required member '{0}' cannot be hidden by '{1}'.|
+|CS9032|Error|Required member '{0}' cannot be less visible or have a setter less visible than the containing type '{1}'.|
+|CS9033|Error|Do not use 'System.Runtime.CompilerServices.RequiredMemberAttribute'. Use the 'required' keyword on required fields and properties instead.|
+|CS9034|Error|Required member '{0}' must be settable.|
+|CS9035|Error|Required member '{0}' must be set in the object initializer or attribute constructor.|
+|CS9036|Error|Required member '{0}' must be assigned a value, it cannot use a nested member or collection initializer.|
+|CS9037|Error|The required members list for '{0}' is malformed and cannot be interpreted.|
+|CS9038|Error|The required members list for the base type '{0}' is malformed and cannot be interpreted. To use this constructor, apply the 'SetsRequiredMembers' attribute.|
+|CS9039|Error|This constructor must add 'SetsRequiredMembers' because it chains to a constructor that has that attribute.|
+|CS9040|Error|'{2}' cannot satisfy the 'new()' constraint on parameter '{1}' in the generic type or or method '{0}' because '{2}' has required members.|
+|CS9041|Error|'{0}' requires compiler feature '{1}', which is not supported by this version of the C# compiler.|
+|CS9042|Warning|Required member '{0}' should not be attributed with 'ObsoleteAttribute' unless the containing type is obsolete or all constructors are obsolete.|
+|CS9043|Error|Ref returning properties cannot be required.|
+|CS9044|Error|'{0}' does not implement interface member '{1}'. '{2}' cannot implicitly implement an inaccessible member.|
+|CS9045|Error|Required members are not allowed on the top level of a script or submission.|
+|CS9046|Error|One of the parameters of an equality, or inequality operator declared in interface '{0}' must be a type parameter on '{0}' constrained to '{0}'|
+|CS9047|Error|Operator '{0}' cannot be applied to operands of type '{1}' and '{2}' that are not UTF-8 byte representations|
+|CS9048|Error|The 'scoped' modifier can be used for refs and ref struct values only.|
+|CS9049|Error|A fixed field must not be a ref field.|
+|CS9050|Error|A ref field cannot refer to a ref struct.|
+|CS9051|Error|File-local type '{0}' cannot be used in a member signature in non-file-local type '{1}'.|
+|CS9052|Error|File-local type '{0}' cannot use accessibility modifiers.|
+|CS9053|Error|File-local type '{0}' cannot be used as a base type of non-file-local type '{1}'.|
+|CS9054|Error|File-local type '{0}' must be defined in a top level type; '{0}' is a nested type.|
+|CS9055|Error|File-local type '{0}' cannot be used in a 'global using static' directive.|
+|CS9056|Error|Types and aliases cannot be named 'file'.|
+|CS9057|Warning|The analyzer assembly '{0}' references version '{1}' of the compiler, which is newer than the currently running version '{2}'.|
+|CS9058|Error|Feature '{0}' is not available in C# 11.0. Please use language version {1} or greater.|
+|CS9059|Error|A ref field can only be declared in a ref struct.|
 
 ## Statistics
 
 |Severity|Count|
 |--------|-----|
-|Hidden|2|
+|Hidden|3|
 |Info|1|
-|Warning|263|
-|Error|1287|
+|Warning|283|
+|Error|1393|
 |Fatal|7|
-|**Total**|**1560**|
+|**Total**|**1687**|

@@ -12,7 +12,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
     - name: Regenerate list of errors and warnings
       run: dotnet run -- -l -c -r main -o CSharpErrorsAndWarnings.md
     - name: Commit changes

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -213,7 +214,7 @@ namespace GenerateCSharpErrors
             {
                 if (e.Severity == Severity.Unknown) continue;
                 stats[e.Severity] = stats.GetValueOrDefault(e.Severity) + 1;
-                writer.WriteLine($"|{Link(e)}|{e.Severity}|{e.Message}|");
+                writer.WriteLine($"|{Link(e)}|{e.Severity}|{MarkdownEscape(e.Message)}|");
             }
 
             writer.WriteLine();
@@ -228,7 +229,10 @@ namespace GenerateCSharpErrors
             }
             writer.WriteLine($"|**Total**|**{stats.Sum(kvp => kvp.Value)}**|");
         }
-
+        private static string MarkdownEscape(string text)
+        {
+            return Regex.Replace(text, "(\\<|\\>)", "\\$1");
+        }
         class ErrorCode
         {
             public static ErrorCode Create(

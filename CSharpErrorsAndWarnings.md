@@ -135,7 +135,7 @@
 |CS0190|Error|The __arglist construct is valid only within a variable argument method|
 |[CS0191](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0191)|Error|A readonly field cannot be assigned to (except in a constructor or init-only setter of the type in which the field is defined or a variable initializer)|
 |[CS0192](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0192)|Error|A readonly field cannot be used as a ref or out value (except in a constructor)|
-|[CS0193](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0193)|Error|The * or -> operator must be applied to a pointer|
+|[CS0193](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0193)|Error|The * or -\> operator must be applied to a pointer|
 |[CS0196](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0196)|Error|A pointer must be indexed by only one value|
 |[CS0197](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0197)|Warning|Using '{0}' as a ref or out value or taking its address may cause a runtime exception because it is a field of a marshal-by-reference class|
 |[CS0198](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0198)|Error|A static readonly field cannot be assigned to (except in a static constructor or a variable initializer)|
@@ -604,7 +604,7 @@
 |[CS1547](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1547)|Error|Keyword 'void' cannot be used in this context|
 |[CS1551](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1551)|Error|Indexers must have at least one parameter|
 |[CS1552](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1552)|Error|Array type specifier, [], must appear before parameter name|
-|[CS1553](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1553)|Error|Declaration is not valid; use '{0} operator <dest-type> (...' instead|
+|[CS1553](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1553)|Error|Declaration is not valid; use '{0} operator \<dest-type\> (...' instead|
 |[CS1555](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1555)|Error|Could not find '{0}' specified for Main method|
 |[CS1556](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1556)|Error|'{0}' specified for Main method must be a non-generic class, record, struct, or interface|
 |[CS1558](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1558)|Error|'{0}' does not have a suitable static 'Main' method|
@@ -737,7 +737,7 @@
 |[CS1723](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1723)|Warning|XML comment has cref attribute '{0}' that refers to a type parameter|
 |[CS1725](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1725)|Error|Friend assembly reference '{0}' is invalid. InternalsVisibleTo declarations cannot have a version, culture, public key token, or processor architecture specified.|
 |[CS1726](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1726)|Error|Friend assembly reference '{0}' is invalid. Strong-name signed assemblies must specify a public key in their InternalsVisibleTo declarations.|
-|[CS1728](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1728)|Error|Cannot bind delegate to '{0}' because it is a member of 'System.Nullable<T>'|
+|[CS1728](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1728)|Error|Cannot bind delegate to '{0}' because it is a member of 'System.Nullable\<T\>'|
 |[CS1729](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1729)|Error|'{0}' does not contain a constructor that takes {1} arguments|
 |[CS1730](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1730)|Error|Assembly and module attributes must precede all other elements defined in a file except using clauses and extern alias declarations|
 |[CS1733](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1733)|Error|Expected expression|
@@ -843,7 +843,7 @@
 |CS1979|Error|Query expressions over source type 'dynamic' or with a join sequence of type 'dynamic' are not allowed|
 |CS1980|Error|Cannot define a class or member that utilizes 'dynamic' because the compiler required type '{0}' cannot be found. Are you missing a reference?|
 |CS1981|Warning|Using '{0}' to test compatibility with '{1}' is essentially identical to testing compatibility with '{2}' and will succeed for all non-null values|
-|CS1983|Error|The return type of an async method must be void, Task, Task<T>, a task-like type, IAsyncEnumerable<T>, or IAsyncEnumerator<T>|
+|CS1983|Error|The return type of an async method must be void, Task, Task\<T\>, a task-like type, IAsyncEnumerable\<T\>, or IAsyncEnumerator\<T\>|
 |CS1984|Error|Cannot await in the body of a finally clause|
 |CS1985|Error|Cannot await in a catch clause|
 |CS1986|Error|'await' requires that the type {0} have a suitable 'GetAwaiter' method|
@@ -854,7 +854,7 @@
 |CS1994|Error|The 'async' modifier can only be used in methods that have a body.|
 |CS1995|Error|The 'await' operator may only be used in a query expression within the first collection expression of the initial 'from' clause or within the collection expression of a 'join' clause|
 |CS1996|Error|Cannot await in the body of a lock statement|
-|CS1997|Error|Since '{0}' is an async method that returns 'Task', a return keyword must not be followed by an object expression. Did you intend to return 'Task<T>'?|
+|CS1997|Error|Since '{0}' is an async method that returns 'Task', a return keyword must not be followed by an object expression. Did you intend to return 'Task\<T\>'?|
 |CS1998|Warning|This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.|
 |[CS2001](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs2001)|Error|Source file '{0}' could not be found.|
 |[CS2002](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs2002)|Warning|Source file '{0}' specified multiple times|
@@ -875,7 +875,7 @@
 |[CS2029](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs2029)|Warning|Invalid name for a preprocessing symbol; '{0}' is not a valid identifier|
 |[CS2033](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs2033)|Fatal|Cannot create short filename '{0}' when a long filename with the same short filename already exists|
 |[CS2034](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs2034)|Error|A /reference option that declares an extern alias can only have one filename. To specify multiple aliases or filenames, use multiple /reference options.|
-|[CS2035](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs2035)|Error|Command-line syntax error: Missing ':<number>' for '{0}' option|
+|[CS2035](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs2035)|Error|Command-line syntax error: Missing ':\<number\>' for '{0}' option|
 |[CS2036](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs2036)|Error|The /pdb option requires that the /debug option also be used|
 |CS2037|Error|An expression tree lambda may not contain a COM call with ref omitted on arguments|
 |CS2038|Warning|The language name '{0}' is invalid.|
@@ -921,13 +921,13 @@
 |CS4007|Error|'await' cannot be used in an expression containing the type '{0}'|
 |CS4008|Error|Cannot await 'void'|
 |[CS4009](https://docs.microsoft.com/en-us/dotnet/csharp/misc/CS4009)|Error|A void or int returning entry point cannot be async|
-|CS4010|Error|Cannot convert async {0} to delegate type '{1}'. An async {0} may return void, Task or Task<T>, none of which are convertible to '{1}'.|
+|CS4010|Error|Cannot convert async {0} to delegate type '{1}'. An async {0} may return void, Task or Task\<T\>, none of which are convertible to '{1}'.|
 |CS4011|Error|'await' requires that the return type '{0}' of '{1}.GetAwaiter()' have suitable 'IsCompleted', 'OnCompleted', and 'GetResult' members, and implement 'INotifyCompletion' or 'ICriticalNotifyCompletion'|
 |CS4012|Error|Parameters or locals of type '{0}' cannot be declared in async methods or async lambda expressions.|
 |CS4013|Error|Instance of type '{0}' cannot be used inside a nested function, query expression, iterator block or async method|
 |[CS4014](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs4014)|Warning|Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.|
 |CS4015|Error|'MethodImplOptions.Synchronized' cannot be applied to an async method|
-|CS4016|Error|Since this is an async method, the return expression must be of type '{0}' rather than 'Task<{0}>'|
+|CS4016|Error|Since this is an async method, the return expression must be of type '{0}' rather than 'Task\<{0}\>'|
 |CS4017|Error|CallerLineNumberAttribute cannot be applied because there are no standard conversions from type '{0}' to type '{1}'|
 |CS4018|Error|CallerFilePathAttribute cannot be applied because there are no standard conversions from type '{0}' to type '{1}'|
 |CS4019|Error|CallerMemberNameAttribute cannot be applied because there are no standard conversions from type '{0}' to type '{1}'|
@@ -943,7 +943,7 @@
 |CS4029|Error|Cannot return an expression of type 'void'|
 |CS4030|Error|Security attribute '{0}' cannot be applied to an Async method.|
 |CS4031|Error|Async methods are not allowed in an Interface, Class, or Structure which has the 'SecurityCritical' or 'SecuritySafeCritical' attribute.|
-|CS4032|Error|The 'await' operator can only be used within an async method. Consider marking this method with the 'async' modifier and changing its return type to 'Task<{0}>'.|
+|CS4032|Error|The 'await' operator can only be used within an async method. Consider marking this method with the 'async' modifier and changing its return type to 'Task\<{0}\>'.|
 |CS4033|Error|The 'await' operator can only be used within an async method. Consider marking this method with the 'async' modifier and changing its return type to 'Task'.|
 |CS4034|Error|The 'await' operator can only be used within an async {0}. Consider marking this {0} with the 'async' modifier.|
 |CS4036|Error|'{0}' does not contain a definition for '{1}' and no extension method '{1}' accepting a first argument of type '{0}' could be found (are you missing a using directive for '{2}'?)|
@@ -1061,7 +1061,7 @@
 |CS8028|Error|'{0}': a class with the ComImport attribute cannot specify field initializers.|
 |CS8029|Warning|Local name '{0}' is too long for PDB.  Consider shortening or compiling without /debug.|
 |CS8030|Error|Anonymous function converted to a void returning delegate cannot return a value|
-|CS8031|Error|Async lambda expression converted to a 'Task' returning delegate cannot return a value. Did you intend to return 'Task<T>'?|
+|CS8031|Error|Async lambda expression converted to a 'Task' returning delegate cannot return a value. Did you intend to return 'Task\<T\>'?|
 |CS8032|Warning|An instance of analyzer {0} cannot be created from {1} : {2}.|
 |CS8033|Warning|The assembly {0} does not contain any analyzers.|
 |CS8034|Warning|Unable to load Analyzer assembly {0} : {1}|
@@ -1179,7 +1179,7 @@
 |CS8177|Error|Async methods cannot have by-reference locals|
 |CS8178|Error|'await' cannot be used in an expression containing a call to '{0}' because it returns by reference|
 |CS8179|Error|Predefined type '{0}' is not defined or imported|
-|CS8180|Error|{ or ; or => expected|
+|CS8180|Error|{ or ; or =\> expected|
 |CS8181|Error|'new' cannot be used with tuple type. Use a tuple literal expression instead.|
 |CS8182|Error|Predefined type '{0}' must be a struct.|
 |CS8183|Error|Cannot infer the type of implicitly-typed discard.|
@@ -1236,6 +1236,7 @@
 |CS8336|Error|The type name '{0}' is reserved to be used by the compiler.|
 |CS8337|Error|The first parameter of a 'ref' extension method '{0}' must be a value type or a generic type constrained to struct.|
 |CS8338|Error|The first parameter of the 'in' extension method '{0}' must be a concrete (non-generic) value type.|
+|CS8339|Error| The parameter modifier '{0}' cannot follow '{1}'|
 |CS8340|Error|Instance fields of readonly structs must be readonly.|
 |CS8341|Error|Auto-implemented instance properties in readonly structs must be readonly.|
 |CS8342|Error|Field-like events are not allowed in readonly structs.|
@@ -1297,7 +1298,7 @@
 |CS8422|Error|A static local function cannot contain a reference to 'this' or 'base'.|
 |CS8423|Error|Attribute '{0}' is not valid on event accessors. It is only valid on '{1}' declarations.|
 |CS8424|Warning|The EnumeratorCancellationAttribute applied to parameter '{0}' will have no effect. The attribute is only effective on a parameter of type CancellationToken in an async-iterator method returning IAsyncEnumerable|
-|CS8425|Warning|Async-iterator '{0}' has one or more parameters of type 'CancellationToken' but none of them is decorated with the 'EnumeratorCancellation' attribute, so the cancellation token parameter from the generated 'IAsyncEnumerable<>.GetAsyncEnumerator' will be unconsumed|
+|CS8425|Warning|Async-iterator '{0}' has one or more parameters of type 'CancellationToken' but none of them is decorated with the 'EnumeratorCancellation' attribute, so the cancellation token parameter from the generated 'IAsyncEnumerable\<\>.GetAsyncEnumerator' will be unconsumed|
 |CS8426|Error|The attribute [EnumeratorCancellation] cannot be used on multiple parameters|
 |CS8427|Error|Enums, classes, and structures cannot be declared in an interface that has an 'in' or 'out' type parameter.|
 |CS8428|Error|Invocation of implicit Index Indexer cannot name the argument.|
@@ -1470,7 +1471,7 @@
 |CS8812|Error|Cannot convert &method group '{0}' to non-function pointer type '{1}'.|
 |CS8813|Error|A module initializer must be an ordinary member method|
 |CS8814|Error|Module initializer method '{0}' must be accessible at the module level|
-|CS8815|Error|Module initializer method '{0}' must be static, must have no parameters, and must return 'void'|
+|CS8815|Error|Module initializer method '{0}' must be static, and non-virtual, must have no parameters, and must return 'void'|
 |CS8816|Error|Module initializer method '{0}' must not be generic and must not be contained in a generic type|
 |CS8817|Error|Both partial method declarations must have the same return type.|
 |CS8818|Error|Partial method declarations must have matching ref return values.|
@@ -1691,6 +1692,14 @@
 |CS9057|Warning|The analyzer assembly '{0}' references version '{1}' of the compiler, which is newer than the currently running version '{2}'.|
 |CS9058|Error|Feature '{0}' is not available in C# 11.0. Please use language version {1} or greater.|
 |CS9059|Error|A ref field can only be declared in a ref struct.|
+|CS9060|Error|Cannot use a numeric constant or relational pattern on '{0}' because it inherits from or extends 'INumberBase\<T\>'. Consider using a type pattern to narrow to a specifc numeric type.|
+|CS9061|Error|Unexpected contextual keyword 'scoped'. Did you mean 'scoped ref' or '@scoped'?|
+|CS9062|Error|Types and aliases cannot be named 'scoped'.|
+|CS9063|Error|UnscopedRefAttribute can only be applied to 'out' parameters, 'ref' and 'in' parameters that refer to 'ref struct' types, and instance methods and properties on 'struct' types other than constructors and 'init' accessors.|
+|CS9064|Error|Target runtime doesn't support ref fields.|
+|CS9065|Error|Do not use 'System.Runtime.CompilerServices.ScopedRefAttribute'. Use the 'scoped' keyword instead.|
+|CS9066|Error|UnscopedRefAttribute cannot be applied to parameters that have a 'scoped' modifier.|
+|CS9067|Warning|Analyzer reference '{0}' specified multiple times|
 
 ## Statistics
 
@@ -1698,7 +1707,7 @@
 |--------|-----|
 |Hidden|3|
 |Info|1|
-|Warning|283|
-|Error|1393|
+|Warning|284|
+|Error|1401|
 |Fatal|7|
-|**Total**|**1687**|
+|**Total**|**1696**|

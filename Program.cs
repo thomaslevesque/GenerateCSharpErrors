@@ -156,9 +156,7 @@ namespace GenerateCSharpErrors
 
             foreach (var item in root!.Items.Where(e => e.Items == null && !string.IsNullOrWhiteSpace(e.DisplayName)))
             {
-                var displayName = item.DisplayName.Replace(", ", ",");
-                var subCodes = displayName.Split(',');
-                foreach (var name in subCodes)
+                foreach (var name in Regex.Split(item.DisplayName, @"\s*,\s*"))
                 {
                     int code = int.Parse(Path.GetFileNameWithoutExtension(name)![2..]);
                     var href = item.Href.EndsWith(".md", StringComparison.OrdinalIgnoreCase)

@@ -154,6 +154,18 @@ namespace GenerateCSharpErrors
                 codes.Add(code, href);
             }
 
+            foreach (var item in root!.Items.Where(e => e.Items == null && !string.IsNullOrWhiteSpace(e.DisplayName)))
+            {
+                foreach (var name in Regex.Split(item.DisplayName, @"\s*,\s*"))
+                {
+                    int code = int.Parse(Path.GetFileNameWithoutExtension(name)![2..]);
+                    var href = item.Href.EndsWith(".md", StringComparison.OrdinalIgnoreCase)
+                        ? item.Href[..^3]
+                        : item.Href;
+                    codes.Add(code, href);
+                }
+            }
+
             return codes;
         }
 
@@ -167,6 +179,8 @@ namespace GenerateCSharpErrors
         {
             [YamlMember("name")]
             public string Name { get; set; }
+            [YamlMember("displayName")]
+            public string DisplayName { get; set; }
             [YamlMember("href")]
             public string Href { get; set; }
             [YamlMember("items")]
@@ -229,10 +243,12 @@ namespace GenerateCSharpErrors
             }
             writer.WriteLine($"|**Total**|**{stats.Sum(kvp => kvp.Value)}**|");
         }
+
         private static string MarkdownEscape(string text)
         {
-            return Regex.Replace(text, "(\\<|\\>)", "\\$1");
+            return Regex.Replace(text, "(\\<|\\>|_|\\*)", "\\$1");
         }
+
         class ErrorCode
         {
             public static ErrorCode Create(

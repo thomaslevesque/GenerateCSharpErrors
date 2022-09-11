@@ -132,10 +132,10 @@
 |[CS0185](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0185)|Error|'{0}' is not a reference type as required by the lock statement|
 |[CS0186](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0186)|Error|Use of null is not valid in this context|
 |[CS0188](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0188)|Error|The 'this' object cannot be used before all of its fields have been assigned. Consider updating to language version '{0}' to auto-default the unassigned fields.|
-|CS0190|Error|The __arglist construct is valid only within a variable argument method|
+|CS0190|Error|The \_\_arglist construct is valid only within a variable argument method|
 |[CS0191](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0191)|Error|A readonly field cannot be assigned to (except in a constructor or init-only setter of the type in which the field is defined or a variable initializer)|
 |[CS0192](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0192)|Error|A readonly field cannot be used as a ref or out value (except in a constructor)|
-|[CS0193](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0193)|Error|The * or -\> operator must be applied to a pointer|
+|[CS0193](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0193)|Error|The \* or -\> operator must be applied to a pointer|
 |[CS0196](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0196)|Error|A pointer must be indexed by only one value|
 |[CS0197](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0197)|Warning|Using '{0}' as a ref or out value or taking its address may cause a runtime exception because it is a field of a marshal-by-reference class|
 |[CS0198](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0198)|Error|A static readonly field cannot be assigned to (except in a static constructor or a variable initializer)|
@@ -162,7 +162,7 @@
 |[CS0221](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0221)|Error|Constant value '{0}' cannot be converted to a '{1}' (use 'unchecked' syntax to override)|
 |CS0224|Error|A method with vararg cannot be generic, be in a generic type, or have a params parameter|
 |[CS0225](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0225)|Error|The params parameter must be a single dimensional array|
-|[CS0226](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0226)|Error|An __arglist expression may only appear inside of a call or new expression|
+|[CS0226](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0226)|Error|An \_\_arglist expression may only appear inside of a call or new expression|
 |[CS0227](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0227)|Error|Unsafe code may only appear if compiling with /unsafe|
 |[CS0229](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0229)|Error|Ambiguity between '{0}' and '{1}'|
 |[CS0230](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0230)|Error|Type and identifier are both required in a foreach statement|
@@ -186,7 +186,7 @@
 |[CS0253](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0253)|Warning|Possible unintended reference comparison; to get a value comparison, cast the right hand side to type '{0}'|
 |[CS0254](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0254)|Error|The right hand side of a fixed statement assignment may not be a cast expression|
 |[CS0255](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0255)|Error|stackalloc may not be used in a catch or finally block|
-|CS0257|Error|An __arglist parameter must be the last parameter in a formal parameter list|
+|CS0257|Error|An \_\_arglist parameter must be the last parameter in a formal parameter list|
 |[CS0260](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0260)|Error|Missing partial modifier on declaration of type '{0}'; another partial declaration of this type exists|
 |[CS0261](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0261)|Error|Partial declarations of '{0}' must be all classes, all record classes, all structs, all record structs, or all interfaces|
 |[CS0262](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0262)|Error|Partial declarations of '{0}' have conflicting accessibility modifiers|
@@ -369,7 +369,7 @@
 |[CS0626](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0626)|Warning|Method, operator, or accessor '{0}' is marked external and has no attributes on it. Consider adding a DllImport attribute to specify the external implementation.|
 |[CS0628](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0628)|Warning|'{0}': new protected member declared in sealed type|
 |[CS0629](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0629)|Error|Conditional member '{0}' cannot implement interface member '{1}' in type '{2}'|
-|CS0630|Error|'{0}' cannot implement interface member '{1}' in type '{2}' because it has an __arglist parameter|
+|CS0630|Error|'{0}' cannot implement interface member '{1}' in type '{2}' because it has an \_\_arglist parameter|
 |[CS0631](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0631)|Error|ref and out are not valid in this context|
 |[CS0633](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0633)|Error|The argument to the '{0}' attribute must be a valid identifier|
 |[CS0636](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0636)|Error|The FieldOffset attribute can only be placed on members of types marked with the StructLayout(LayoutKind.Explicit)|
@@ -535,7 +535,7 @@
 |[CS1030](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1030)|Warning|#warning: '{0}'|
 |[CS1031](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1031)|Error|Type expected|
 |[CS1032](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1032)|Error|Cannot define/undefine preprocessor symbols after first token in file|
-|[CS1035](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1035)|Error|End-of-file found, '*/' expected|
+|[CS1035](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1035)|Error|End-of-file found, '\*/' expected|
 |[CS1037](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1037)|Error|Overloadable operator expected|
 |[CS1038](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1038)|Error|#endregion directive expected|
 |[CS1039](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1039)|Error|Unterminated string literal|
@@ -667,7 +667,7 @@
 |[CS1633](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1633)|Warning|Unrecognized #pragma directive|
 |[CS1634](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1634)|Warning|Expected 'disable' or 'restore'|
 |[CS1635](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1635)|Warning|Cannot restore warning 'CS{0}' because it was disabled globally|
-|CS1636|Error|__arglist is not allowed in the parameter list of iterators|
+|CS1636|Error|\_\_arglist is not allowed in the parameter list of iterators|
 |[CS1637](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1637)|Error|Iterators cannot have unsafe parameters or yield types|
 |[CS1639](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1639)|Error|The managed coclass wrapper class signature '{0}' for interface '{1}' is not a valid class name signature|
 |[CS1640](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1640)|Error|foreach statement cannot operate on variables of type '{0}' because it implements multiple instantiations of '{1}'; try casting to a specific interface instantiation|
@@ -694,7 +694,7 @@
 |[CS1666](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1666)|Error|You cannot use fixed size buffers contained in unfixed expressions. Try using the fixed statement.|
 |[CS1667](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1667)|Error|Attribute '{0}' is not valid on property or event accessors. It is only valid on '{1}' declarations.|
 |[CS1668](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1668)|Warning|Invalid search path '{0}' specified in '{1}' -- '{2}'|
-|CS1669|Error|__arglist is not valid in this context|
+|CS1669|Error|\_\_arglist is not valid in this context|
 |[CS1670](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1670)|Error|params is not valid in this context|
 |[CS1671](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1671)|Error|A namespace declaration cannot have modifiers or attributes|
 |[CS1672](https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1672)|Error|Invalid option '{0}' for /platform; must be anycpu, x86, Itanium, arm, arm64 or x64|
@@ -917,7 +917,7 @@
 |CS4003|Error|'await' cannot be used as an identifier within an async method or lambda expression|
 |CS4004|Error|Cannot await in an unsafe context|
 |CS4005|Error|Async methods cannot have unsafe parameters or return types|
-|CS4006|Error|__arglist is not allowed in the parameter list of async methods|
+|CS4006|Error|\_\_arglist is not allowed in the parameter list of async methods|
 |CS4007|Error|'await' cannot be used in an expression containing the type '{0}'|
 |CS4008|Error|Cannot await 'void'|
 |[CS4009](https://docs.microsoft.com/en-us/dotnet/csharp/misc/CS4009)|Error|A void or int returning entry point cannot be async|
@@ -968,7 +968,7 @@
 |CS7020|Error|Cannot use 'yield' in top-level script code|
 |CS7021|Error|Cannot declare namespace in script code|
 |CS7022|Warning|The entry point of the program is global code; ignoring '{0}' entry point.|
-|CS7023|Warning|The second operand of an 'is' or 'as' operator may not be static type '{0}'|
+|[CS7023](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|The second operand of an 'is' or 'as' operator may not be static type '{0}'|
 |CS7024|Error|Delegate '{0}' has no invoke method or an invoke method with a return type or parameter types that are not supported.|
 |CS7025|Error|Inconsistent accessibility: event type '{1}' is less accessible than event '{0}'|
 |CS7026|Error|Assembly and module attributes are not allowed in this context|
@@ -1078,7 +1078,7 @@
 |CS8059|Error|Feature '{0}' is not available in C# 6. Please use language version {1} or greater.|
 |CS8070|Error|Control cannot fall out of switch from final case label ('{0}')|
 |CS8072|Error|An expression tree lambda may not contain a null propagating operator.|
-|CS8073|Warning|The result of the expression is always '{0}' since a value of type '{1}' is never equal to 'null' of type '{2}'|
+|[CS8073](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|The result of the expression is always '{0}' since a value of type '{1}' is never equal to 'null' of type '{2}'|
 |CS8074|Error|An expression tree lambda may not contain a dictionary initializer.|
 |CS8075|Error|An extension Add method is not supported for a collection initializer in an expression lambda.|
 |CS8076|Error|Missing close delimiter '}' for interpolated expression started with '{'.|
@@ -1259,7 +1259,7 @@
 |CS8359|Warning|Filter expression is a constant 'false', consider removing the catch clause|
 |CS8360|Warning|Filter expression is a constant 'false', consider removing the try-catch block|
 |CS8361|Error|A conditional expression cannot be used directly in a string interpolation because the ':' ends the interpolation. Parenthesize the conditional expression.|
-|CS8362|Error|__arglist cannot have an argument of void type|
+|CS8362|Error|\_\_arglist cannot have an argument of void type|
 |CS8364|Error|Arguments with 'in' modifier cannot be used in dynamically dispatched expressions.|
 |CS8370|Error|Feature '{0}' is not available in C# 7.3. Please use language version {1} or greater.|
 |CS8371|Warning|Field-targeted attributes on auto-properties are not supported in language version {0}. Please use language version {1} or greater.|
@@ -1268,7 +1268,7 @@
 |CS8374|Error|Cannot ref-assign '{1}' to '{0}' because '{1}' has a narrower escape scope than '{0}'.|
 |CS8375|Error|The 'new()' constraint cannot be used with the 'unmanaged' constraint|
 |CS8377|Error|The type '{2}' must be a non-nullable value type, along with all fields at any level of nesting, in order to use it as parameter '{1}' in the generic type or method '{0}'|
-|CS8378|Error|__arglist cannot have an argument passed by 'in' or 'out'|
+|CS8378|Error|\_\_arglist cannot have an argument passed by 'in' or 'out'|
 |CS8379|Error|Type parameter '{1}' has the 'unmanaged' constraint so '{1}' cannot be used as a constraint for '{0}'|
 |CS8380|Error|'{0}': cannot specify both a constraint class and the 'unmanaged' constraint|
 |CS8381|Error|"Invalid rank specifier: expected ']'|
@@ -1306,14 +1306,14 @@
 |CS8502|Error|Matching the tuple type '{0}' requires '{1}' subpatterns, but '{2}' subpatterns are present.|
 |CS8503|Error|A property subpattern requires a reference to the property or field to be matched, e.g. '{{ Name: {0} }}'|
 |CS8504|Error|Pattern missing|
-|CS8505|Error|A default literal 'default' is not valid as a pattern. Use another literal (e.g. '0' or 'null') as appropriate. To match everything, use a discard pattern '_'.|
+|CS8505|Error|A default literal 'default' is not valid as a pattern. Use another literal (e.g. '0' or 'null') as appropriate. To match everything, use a discard pattern '\_'.|
 |CS8506|Error|No best type was found for the switch expression.|
 |CS8508|Error|The syntax 'var' for a pattern is not permitted to refer to a type, but '{0}' is in scope here.|
 |CS8509|Warning|The switch expression does not handle all possible values of its input type (it is not exhaustive). For example, the pattern '{0}' is not covered.|
 |CS8510|Error|The pattern is unreachable. It has already been handled by a previous arm of the switch expression or it is impossible to match.|
 |CS8511|Error|An expression of type '{0}' cannot be handled by a pattern of type '{1}'. Please use language version '{2}' or greater to match an open type with a constant pattern.|
-|CS8512|Warning|The name '_' refers to the constant, not the discard pattern. Use 'var _' to discard the value, or '@_' to refer to a constant by that name.|
-|CS8513|Warning|The name '_' refers to the type '{0}', not the discard pattern. Use '@_' for the type, or 'var _' to discard.|
+|CS8512|Warning|The name '\_' refers to the constant, not the discard pattern. Use 'var \_' to discard the value, or '@\_' to refer to a constant by that name.|
+|CS8513|Warning|The name '\_' refers to the type '{0}', not the discard pattern. Use '@\_' for the type, or 'var \_' to discard.|
 |CS8514|Error|An expression tree may not contain a switch expression.|
 |CS8515|Error|Parentheses are required around the switch governing expression.|
 |CS8516|Error|The name '{0}' does not identify tuple element '{1}'.|
@@ -1323,43 +1323,43 @@
 |CS8520|Warning|The given expression always matches the provided constant.|
 |CS8521|Error|Pattern-matching is not permitted for pointer types.|
 |CS8522|Error|Element names are not permitted when pattern-matching via 'System.Runtime.CompilerServices.ITuple'.|
-|CS8523|Error|The discard pattern is not permitted as a case label in a switch statement. Use 'case var _:' for a discard pattern, or 'case @_:' for a constant named '_'.|
+|CS8523|Error|The discard pattern is not permitted as a case label in a switch statement. Use 'case var \_:' for a discard pattern, or 'case @\_:' for a constant named '\_'.|
 |CS8524|Warning|The switch expression does not handle some values of its input type (it is not exhaustive) involving an unnamed enum value. For example, the pattern '{0}' is not covered.|
-|CS8597|Warning|Thrown value may be null.|
+|[CS8597](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Thrown value may be null.|
 |CS8598|Error|The suppression operator is not allowed in this context|
-|CS8600|Warning|Converting null literal or possible null value to non-nullable type.|
-|CS8601|Warning|Possible null reference assignment.|
-|CS8602|Warning|Dereference of a possibly null reference.|
+|[CS8600](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Converting null literal or possible null value to non-nullable type.|
+|[CS8601](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Possible null reference assignment.|
+|[CS8602](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Dereference of a possibly null reference.|
 |CS8603|Warning|Possible null reference return.|
-|CS8604|Warning|Possible null reference argument for parameter '{0}' in '{1}'.|
-|CS8605|Warning|Unboxing a possibly null value.|
-|CS8607|Warning|A possible null value may not be used for a type marked with [NotNull] or [DisallowNull]|
-|CS8608|Warning|Nullability of reference types in type doesn't match overridden member.|
-|CS8609|Warning|Nullability of reference types in return type doesn't match overridden member.|
-|CS8610|Warning|Nullability of reference types in type of parameter '{0}' doesn't match overridden member.|
-|CS8611|Warning|Nullability of reference types in type of parameter '{0}' doesn't match partial method declaration.|
-|CS8612|Warning|Nullability of reference types in type of '{0}' doesn't match implicitly implemented member '{1}'.|
-|CS8613|Warning|Nullability of reference types in return type of '{0}' doesn't match implicitly implemented member '{1}'.|
-|CS8614|Warning|Nullability of reference types in type of parameter '{0}' of '{1}' doesn't match implicitly implemented member '{2}'.|
-|CS8615|Warning|Nullability of reference types in type doesn't match implemented member '{0}'.|
-|CS8616|Warning|Nullability of reference types in return type doesn't match implemented member '{0}'.|
-|CS8617|Warning|Nullability of reference types in type of parameter '{0}' doesn't match implemented member '{1}'.|
-|CS8618|Warning|Non-nullable {0} '{1}' must contain a non-null value when exiting constructor. Consider declaring the {0} as nullable.|
-|CS8619|Warning|Nullability of reference types in value of type '{0}' doesn't match target type '{1}'.|
-|CS8620|Warning|Argument of type '{0}' cannot be used for parameter '{2}' of type '{1}' in '{3}' due to differences in the nullability of reference types.|
-|CS8621|Warning|Nullability of reference types in return type of '{0}' doesn't match the target delegate '{1}' (possibly because of nullability attributes).|
-|CS8622|Warning|Nullability of reference types in type of parameter '{0}' of '{1}' doesn't match the target delegate '{2}' (possibly because of nullability attributes).|
+|[CS8604](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Possible null reference argument for parameter '{0}' in '{1}'.|
+|[CS8605](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Unboxing a possibly null value.|
+|[CS8607](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|A possible null value may not be used for a type marked with [NotNull] or [DisallowNull]|
+|[CS8608](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in type doesn't match overridden member.|
+|[CS8609](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in return type doesn't match overridden member.|
+|[CS8610](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in type of parameter '{0}' doesn't match overridden member.|
+|[CS8611](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in type of parameter '{0}' doesn't match partial method declaration.|
+|[CS8612](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in type of '{0}' doesn't match implicitly implemented member '{1}'.|
+|[CS8613](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in return type of '{0}' doesn't match implicitly implemented member '{1}'.|
+|[CS8614](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in type of parameter '{0}' of '{1}' doesn't match implicitly implemented member '{2}'.|
+|[CS8615](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in type doesn't match implemented member '{0}'.|
+|[CS8616](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in return type doesn't match implemented member '{0}'.|
+|[CS8617](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in type of parameter '{0}' doesn't match implemented member '{1}'.|
+|[CS8618](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Non-nullable {0} '{1}' must contain a non-null value when exiting constructor. Consider declaring the {0} as nullable.|
+|[CS8619](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in value of type '{0}' doesn't match target type '{1}'.|
+|[CS8620](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Argument of type '{0}' cannot be used for parameter '{2}' of type '{1}' in '{3}' due to differences in the nullability of reference types.|
+|[CS8621](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in return type of '{0}' doesn't match the target delegate '{1}' (possibly because of nullability attributes).|
+|[CS8622](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in type of parameter '{0}' of '{1}' doesn't match the target delegate '{2}' (possibly because of nullability attributes).|
 |CS8623|Error|Explicit application of 'System.Runtime.CompilerServices.NullableAttribute' is not allowed.|
-|CS8624|Warning|Argument of type '{0}' cannot be used as an output of type '{1}' for parameter '{2}' in '{3}' due to differences in the nullability of reference types.|
-|CS8625|Warning|Cannot convert null literal to non-nullable reference type.|
+|[CS8624](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Argument of type '{0}' cannot be used as an output of type '{1}' for parameter '{2}' in '{3}' due to differences in the nullability of reference types.|
+|[CS8625](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Cannot convert null literal to non-nullable reference type.|
 |CS8627|Error|A nullable type parameter must be known to be a value type or non-nullable reference type unless language version '{0}' or greater is used. Consider changing the language version or adding a 'class', 'struct', or type constraint.|
 |CS8628|Error|Cannot use a nullable reference type in object creation.|
-|CS8629|Warning|Nullable value type may be null.|
+|[CS8629](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullable value type may be null.|
 |CS8630|Error|Invalid '{0}' value: '{1}' for C# {2}. Please use language version '{3}' or greater.|
-|CS8631|Warning|The type '{3}' cannot be used as type parameter '{2}' in the generic type or method '{0}'. Nullability of type argument '{3}' doesn't match constraint type '{1}'.|
+|[CS8631](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|The type '{3}' cannot be used as type parameter '{2}' in the generic type or method '{0}'. Nullability of type argument '{3}' doesn't match constraint type '{1}'.|
 |CS8632|Warning|The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.|
-|CS8633|Warning|Nullability in constraints for type parameter '{0}' of method '{1}' doesn't match the constraints for type parameter '{2}' of interface method '{3}'. Consider using an explicit interface implementation instead.|
-|CS8634|Warning|The type '{2}' cannot be used as type parameter '{1}' in the generic type or method '{0}'. Nullability of type argument '{2}' doesn't match 'class' constraint.|
+|[CS8633](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability in constraints for type parameter '{0}' of method '{1}' doesn't match the constraints for type parameter '{2}' of interface method '{3}'. Consider using an explicit interface implementation instead.|
+|[CS8634](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|The type '{2}' cannot be used as type parameter '{1}' in the generic type or method '{0}'. Nullability of type argument '{2}' doesn't match 'class' constraint.|
 |CS8635|Error|Unexpected character sequence '...'|
 |CS8636|Error|Invalid option '{0}' for /nullable; must be 'disable', 'enable', 'warnings' or 'annotations'|
 |CS8637|Error|Expected 'enable', 'disable', or 'restore'|
@@ -1367,17 +1367,17 @@
 |CS8640|Error|Expression tree cannot contain value of ref struct or restricted type '{0}'.|
 |CS8641|Error|'else' cannot start a statement.|
 |CS8642|Error|An expression tree may not contain a null coalescing assignment|
-|CS8643|Warning|Nullability of reference types in explicit interface specifier doesn't match interface implemented by the type.|
-|CS8644|Warning|'{0}' does not implement interface member '{1}'. Nullability of reference types in interface implemented by the base type doesn't match.|
-|CS8645|Warning|'{0}' is already listed in the interface list on type '{1}' with different nullability of reference types.|
+|[CS8643](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in explicit interface specifier doesn't match interface implemented by the type.|
+|[CS8644](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|'{0}' does not implement interface member '{1}'. Nullability of reference types in interface implemented by the base type doesn't match.|
+|[CS8645](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|'{0}' is already listed in the interface list on type '{1}' with different nullability of reference types.|
 |CS8646|Error|'{0}' is explicitly implemented more than once.|
 |CS8647|Error|A using variable cannot be used directly within a switch section (consider using braces). |
 |CS8648|Error|A goto cannot jump to a location after a using declaration.|
 |CS8649|Error|A goto cannot jump to a location before a using declaration within the same block.|
 |CS8650|Error|It is not legal to use nullable reference type '{0}?' in an is-type expression; use the underlying type '{0}' instead.|
 |CS8651|Error|It is not legal to use nullable reference type '{0}?' in an as expression; use the underlying type '{0}' instead.|
-|CS8652|Error|The feature '{0}' is currently in Preview and *unsupported*. To use Preview features, use the 'preview' language version.|
-|CS8655|Warning|The switch expression does not handle some null inputs (it is not exhaustive). For example, the pattern '{0}' is not covered.|
+|CS8652|Error|The feature '{0}' is currently in Preview and \*unsupported\*. To use Preview features, use the 'preview' language version.|
+|[CS8655](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|The switch expression does not handle some null inputs (it is not exhaustive). For example, the pattern '{0}' is not covered.|
 |CS8656|Warning|Call to non-readonly member '{0}' from a 'readonly' member results in an implicit copy of '{1}'.|
 |CS8657|Error|Static member '{0}' cannot be marked 'readonly'.|
 |CS8658|Error|Auto-implemented 'set' accessor '{0}' cannot be marked 'readonly'.|
@@ -1389,10 +1389,10 @@
 |CS8664|Error|'{0}': 'readonly' can only be used on accessors if the property or indexer has both a get and a set accessor|
 |CS8665|Error|Method '{0}' specifies a 'class' constraint for type parameter '{1}', but corresponding type parameter '{2}' of overridden or explicitly implemented method '{3}' is not a reference type.|
 |CS8666|Error|Method '{0}' specifies a 'struct' constraint for type parameter '{1}', but corresponding type parameter '{2}' of overridden or explicitly implemented method '{3}' is not a non-nullable value type.|
-|CS8667|Warning|Partial method declarations of '{0}' have inconsistent nullability in constraints for type parameter '{1}'|
+|[CS8667](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Partial method declarations of '{0}' have inconsistent nullability in constraints for type parameter '{1}'|
 |CS8668|Error|Expected 'warnings', 'annotations', or end of directive|
 |CS8669|Warning|The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. Auto-generated code requires an explicit '#nullable' directive in source.|
-|CS8670|Warning|Object or collection initializer implicitly dereferences possibly null member '{0}'.|
+|[CS8670](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Object or collection initializer implicitly dereferences possibly null member '{0}'.|
 |CS8700|Error|Multiple analyzer config files cannot be in the same directory ('{0}').|
 |CS8701|Error|Target runtime doesn't support default interface implementation.|
 |CS8702|Error|'{0}' cannot implement interface member '{1}' in type '{2}' because the target runtime doesn't support default interface implementation.|
@@ -1403,7 +1403,7 @@
 |CS8707|Error|Target runtime doesn't support 'protected', 'protected internal', or 'private protected' accessibility for a member of an interface.|
 |CS8711|Error|Type '{0}' cannot be embedded because it has a non-abstract member. Consider setting the 'Embed Interop Types' property to false.|
 |CS8712|Error|'{0}': abstract event cannot use event accessor syntax|
-|CS8714|Warning|The type '{2}' cannot be used as type parameter '{1}' in the generic type or method '{0}'. Nullability of type argument '{2}' doesn't match 'notnull' constraint.|
+|[CS8714](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|The type '{2}' cannot be used as type parameter '{1}' in the generic type or method '{0}'. Nullability of type argument '{2}' doesn't match 'notnull' constraint.|
 |CS8715|Error|Duplicate null suppression operator ('!')|
 |CS8716|Error|There is no target type for the default literal.|
 |CS8750|Error|Type '{0}' cannot be embedded because it has a re-abstraction of a member from base interface. Consider setting the 'Embed Interop Types' property to false.|
@@ -1418,22 +1418,22 @@
 |CS8759|Error|Cannot create a function pointer for '{0}' because it is not a static method|
 |CS8760|Error|'{0}': extern event cannot have initializer|
 |CS8761|Error|Operator '{0}' cannot be applied to 'default' and operand of type '{1}' because it is a type parameter that is not known to be a reference type|
-|CS8762|Warning|Parameter '{0}' must have a non-null value when exiting with '{1}'.|
-|CS8763|Warning|A method marked [DoesNotReturn] should not return.|
-|CS8764|Warning|Nullability of return type doesn't match overridden member (possibly because of nullability attributes).|
-|CS8765|Warning|Nullability of type of parameter '{0}' doesn't match overridden member (possibly because of nullability attributes).|
-|CS8766|Warning|Nullability of reference types in return type of '{0}' doesn't match implicitly implemented member '{1}' (possibly because of nullability attributes).|
-|CS8767|Warning|Nullability of reference types in type of parameter '{0}' of '{1}' doesn't match implicitly implemented member '{2}' (possibly because of nullability attributes).|
-|CS8768|Warning|Nullability of reference types in return type doesn't match implemented member '{0}' (possibly because of nullability attributes).|
-|CS8769|Warning|Nullability of reference types in type of parameter '{0}' doesn't match implemented member '{1}' (possibly because of nullability attributes).|
-|CS8770|Warning|Method '{0}' lacks `[DoesNotReturn]` annotation to match implemented or overridden member.|
+|[CS8762](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Parameter '{0}' must have a non-null value when exiting with '{1}'.|
+|[CS8763](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|A method marked [DoesNotReturn] should not return.|
+|[CS8764](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of return type doesn't match overridden member (possibly because of nullability attributes).|
+|[CS8765](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of type of parameter '{0}' doesn't match overridden member (possibly because of nullability attributes).|
+|[CS8766](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in return type of '{0}' doesn't match implicitly implemented member '{1}' (possibly because of nullability attributes).|
+|[CS8767](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in type of parameter '{0}' of '{1}' doesn't match implicitly implemented member '{2}' (possibly because of nullability attributes).|
+|[CS8768](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in return type doesn't match implemented member '{0}' (possibly because of nullability attributes).|
+|[CS8769](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in type of parameter '{0}' doesn't match implemented member '{1}' (possibly because of nullability attributes).|
+|[CS8770](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Method '{0}' lacks `[DoesNotReturn]` annotation to match implemented or overridden member.|
 |CS8771|Error|Output directory could not be determined|
 |CS8772|Error|stdin argument '-' is specified, but input has not been redirected from the standard input stream.|
 |CS8773|Error|Feature '{0}' is not available in C# 9.0. Please use language version {1} or greater.|
-|CS8774|Warning|Member '{0}' must have a non-null value when exiting.|
-|CS8775|Warning|Member '{0}' must have a non-null value when exiting with '{1}'.|
-|CS8776|Warning|Member '{0}' cannot be used in this attribute.|
-|CS8777|Warning|Parameter '{0}' must have a non-null value when exiting.|
+|[CS8774](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Member '{0}' must have a non-null value when exiting.|
+|[CS8775](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Member '{0}' must have a non-null value when exiting with '{1}'.|
+|[CS8776](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Member '{0}' cannot be used in this attribute.|
+|[CS8777](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Parameter '{0}' must have a non-null value when exiting.|
 |CS8778|Warning|Constant value '{0}' may overflow '{1}' at runtime (use 'unchecked' syntax to override)|
 |CS8779|Error|'{0}' is already listed in the interface list on type '{2}' as '{1}'.|
 |CS8780|Error|A variable may not be declared within a 'not' or 'or' pattern.|
@@ -1475,19 +1475,19 @@
 |CS8816|Error|Module initializer method '{0}' must not be generic and must not be contained in a generic type|
 |CS8817|Error|Both partial method declarations must have the same return type.|
 |CS8818|Error|Partial method declarations must have matching ref return values.|
-|CS8819|Warning|Nullability of reference types in return type doesn't match partial method declaration.|
+|[CS8819](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Nullability of reference types in return type doesn't match partial method declaration.|
 |CS8820|Error|A static anonymous function cannot contain a reference to '{0}'.|
 |CS8821|Error|A static anonymous function cannot contain a reference to 'this' or 'base'.|
 |CS8822|Error|Method '{0}' specifies a 'default' constraint for type parameter '{1}', but corresponding type parameter '{2}' of overridden or explicitly implemented method '{3}' is constrained to a reference type or a value type.|
 |CS8823|Error|The 'default' constraint is valid on override and explicit interface implementation methods only.|
-|CS8824|Warning|Parameter '{0}' must have a non-null value when exiting because parameter '{1}' is non-null.|
-|CS8825|Warning|Return value must be non-null because parameter '{0}' is non-null.|
-|CS8826|Warning|Partial method declarations '{0}' and '{1}' have signature differences.|
+|[CS8824](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Parameter '{0}' must have a non-null value when exiting because parameter '{1}' is non-null.|
+|[CS8825](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|Return value must be non-null because parameter '{0}' is non-null.|
+|[CS8826](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|Partial method declarations '{0}' and '{1}' have signature differences.|
 |CS8830|Error|'{0}': Target runtime doesn't support covariant return types in overrides. Return type must be '{2}' to match overridden member '{1}'|
 |CS8831|Error|'{0}': Target runtime doesn't support covariant types in overrides. Type must be '{2}' to match overridden member '{1}'|
 |CS8846|Warning|The switch expression does not handle all possible values of its input type (it is not exhaustive). For example, the pattern '{0}' is not covered. However, a pattern with a 'when' clause might successfully match this value.|
-|CS8847|Warning|The switch expression does not handle some null inputs (it is not exhaustive). For example, the pattern '{0}' is not covered. However, a pattern with a 'when' clause might successfully match this value.|
-|CS8848|Warning|Operator '{0}' cannot be used here due to precedence. Use parentheses to disambiguate.|
+|[CS8847](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings)|Warning|The switch expression does not handle some null inputs (it is not exhaustive). For example, the pattern '{0}' is not covered. However, a pattern with a 'when' clause might successfully match this value.|
+|[CS8848](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|Operator '{0}' cannot be used here due to precedence. Use parentheses to disambiguate.|
 |CS8849|Error|An expression tree may not contain a with-expression.|
 |CS8850|Warning|The assembly '{0}' containing type '{1}' references .NET Framework, which is not supported.|
 |CS8851|Warning|'{0}' defines 'Equals' but not 'GetHashCode'|
@@ -1519,25 +1519,25 @@
 |CS8877|Error|Record member '{0}' may not be static.|
 |CS8878|Error|A copy constructor '{0}' must be public or protected because the record is not sealed.|
 |CS8879|Error|Record member '{0}' must be private.|
-|CS8880|Warning|Auto-implemented property '{0}' must be fully assigned before control is returned to the caller. Consider updating to language version '{1}' to auto-default the property.|
-|CS8881|Warning|Field '{0}' must be fully assigned before control is returned to the caller. Consider updating to language version '{1}' to auto-default the field.|
-|CS8882|Warning|The out parameter '{0}' must be assigned to before control leaves the current method|
-|CS8883|Warning|Use of possibly unassigned auto-implemented property '{0}'|
-|CS8884|Warning|Use of possibly unassigned field '{0}'|
-|CS8885|Warning|The 'this' object cannot be used before all of its fields have been assigned. Consider updating to language version '{0}' to auto-default the unassigned fields.|
-|CS8886|Warning|Use of unassigned out parameter '{0}'|
-|CS8887|Warning|Use of unassigned local variable '{0}'|
+|[CS8880](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|Auto-implemented property '{0}' must be fully assigned before control is returned to the caller. Consider updating to language version '{1}' to auto-default the property.|
+|[CS8881](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|Field '{0}' must be fully assigned before control is returned to the caller. Consider updating to language version '{1}' to auto-default the field.|
+|[CS8882](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|The out parameter '{0}' must be assigned to before control leaves the current method|
+|[CS8883](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|Use of possibly unassigned auto-implemented property '{0}'|
+|[CS8884](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|Use of possibly unassigned field '{0}'|
+|[CS8885](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|The 'this' object cannot be used before all of its fields have been assigned. Consider updating to language version '{0}' to auto-default the unassigned fields.|
+|[CS8886](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|Use of unassigned out parameter '{0}'|
+|[CS8887](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|Use of unassigned local variable '{0}'|
 |CS8888|Error|'managed' calling convention cannot be combined with unmanaged calling convention specifiers.|
 |CS8889|Error|The target runtime doesn't support extensible or runtime-environment default calling conventions.|
 |CS8890|Error|Type '{0}' is not defined.|
 |CS8891|Error|Type '{0}' must be public to be used as a calling convention.|
-|CS8892|Warning|Method '{0}' will not be used as an entry point because a synchronous entry point '{1}' was found.|
+|[CS8892](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|Method '{0}' will not be used as an entry point because a synchronous entry point '{1}' was found.|
 |CS8893|Error|'{0}' is not a valid calling convention type for 'UnmanagedCallersOnly'.|
 |CS8894|Error|Cannot use '{0}' as a {1} type on a method attributed with 'UnmanagedCallersOnly'.|
 |CS8895|Error|Methods attributed with 'UnmanagedCallersOnly' cannot have generic type parameters and cannot be declared in a generic type.|
 |CS8896|Error|'UnmanagedCallersOnly' can only be applied to ordinary static non-abstract, non-virtual methods or static local functions.|
-|CS8897|Warning|'{0}': static types cannot be used as parameters|
-|CS8898|Warning|'{0}': static types cannot be used as return types|
+|[CS8897](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|'{0}': static types cannot be used as parameters|
+|[CS8898](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|'{0}': static types cannot be used as return types|
 |CS8899|Error|Application entry points cannot be attributed with 'UnmanagedCallersOnly'.|
 |CS8900|Error|Module initializer cannot be attributed with 'UnmanagedCallersOnly'.|
 |CS8901|Error|'{0}' is attributed with 'UnmanagedCallersOnly' and cannot be called directly. Obtain a function pointer to this method.|
@@ -1619,7 +1619,7 @@
 |CS8978|Error|'{0}' cannot be made nullable.|
 |CS8979|Error|List patterns may not be used for a value of type '{0}'.|
 |CS8980|Error|Slice patterns may only be used once and directly inside a list pattern.|
-|CS8981|Warning|The type name '{0}' only contains lower-cased ascii characters. Such names may become reserved for the language.|
+|[CS8981](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/warning-waves)|Warning|The type name '{0}' only contains lower-cased ascii characters. Such names may become reserved for the language.|
 |CS8982|Error|A constructor declared in a 'record struct' with parameter list must have a 'this' initializer that calls the primary constructor or an explicitly declared constructor.|
 |CS8983|Error|A 'struct' with field initializers must include an explicitly declared constructor.|
 |CS8984|Error|Cannot update because an inferred delegate type has changed.|
@@ -1700,6 +1700,9 @@
 |CS9065|Error|Do not use 'System.Runtime.CompilerServices.ScopedRefAttribute'. Use the 'scoped' keyword instead.|
 |CS9066|Error|UnscopedRefAttribute cannot be applied to parameters that have a 'scoped' modifier.|
 |CS9067|Warning|Analyzer reference '{0}' specified multiple times|
+|CS9068|Error|File-local type '{0}' must be declared in a file with a unique path. Path '{1}' is used in multiple files.|
+|CS9069|Error|File-local type '{0}' cannot be used because the containing file path cannot be converted into the equivalent UTF-8 byte representation. {1}|
+|CS9070|Error|'readonly' is not supported as a parameter modifier. Did you mean 'in'?|
 
 ## Statistics
 
@@ -1708,6 +1711,6 @@
 |Hidden|3|
 |Info|1|
 |Warning|284|
-|Error|1401|
+|Error|1404|
 |Fatal|7|
-|**Total**|**1696**|
+|**Total**|**1699**|
